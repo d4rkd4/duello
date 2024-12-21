@@ -7,7 +7,7 @@
     <!-- Comfortaa Font -->
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* CSS Kodları (Değişiklik Yapılmamıştır) */
+        /* CSS Kodları */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -531,113 +531,64 @@
             height: auto;
         }
 
-        .final-back-button {
-            background-color: #555;
+        /* Yeni Eklenen Stil: End Game Button */
+        .end-game-button {
+            background-color: #007BFF; /* Mavi renk */
             color: white;
             padding: 12px 25px;
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            transition: background-color 0.2s, transform 0.2s;
+            transition: background-color 0.3s, transform 0.2s;
             font-size: 1em;
+            margin-top: 20px;
         }
 
-        .final-back-button:hover {
-            background-color: #333;
+        .end-game-button:hover {
+            background-color: #0056b3;
             transform: scale(1.05);
         }
 
-        .davet-et-button {
-            background-color: #f59e0b;
+        /* Yeni +1 Efekti */
+        .animated-plus-one {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 7em;
+            color: #28a745;
+            pointer-events: none;
+            z-index: 1000;
+            opacity: 1;
+        }
+
+        @keyframes plus-one-move {
+            0% {
+                opacity:1;
+                transform: translate(-50%, -50%) translate(0px, 0px) scale(1);
+            }
+            100% {
+                opacity:0;
+                transform: translate(-50%, -50%) translate(300px, -300px) scale(0.5);
+            }
+        }
+
+        /* "Oyunda" Butonu İçin Ek Stil */
+        .oyunda-button {
+            background-color: #f59e0b; /* Turuncu renk */
             border: none;
             border-radius: 5px;
             color: white;
             padding: 5px 10px;
             font-size: 0.9em;
-            cursor: pointer;
+            cursor: not-allowed;
+            opacity: 0.7;
         }
 
-        .davet-et-button:hover {
+        .oyunda-button:hover {
             background-color: #d97706;
-        }
-
-        /* Oyundakiler Modal */
-        .players-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width:100%;
-            height:100%;
-            background:rgba(0,0,0,0.4);
-            display:none;
-            align-items:center;
-            justify-content:center;
-            z-index:9999999;
-        }
-
-        .players-content {
-            background:#fff;
-            padding:20px;
-            border-radius:10px;
-            width:90%;
-            max-width:400px;
-            box-shadow:0 0 10px rgba(0,0,0,0.2);
-            display:flex;
-            flex-direction:column;
-            gap:15px;
-        }
-
-        .players-header {
-            display:flex;
-            justify-content:space-between;
-            align-items:center;
-        }
-
-        .players-header h3 {
-            margin:0;
-            font-size:1.5em;
-            color:#333;
-        }
-
-        .players-close {
-            background: none;
-            border:none;
-            font-size:1.2em;
-            cursor:pointer;
-            color:#333;
-        }
-
-        .players-list {
-            list-style:none;
-            padding:0;
-            margin:0;
-            display:flex;
-            flex-direction:column;
-            gap:10px;
-        }
-
-        .players-list li {
-            display:flex;
-            align-items:center;
-            gap:10px;
-            background:#f0f0f0;
-            padding:10px;
-            border-radius:5px;
-            justify-content: space-between;
-        }
-
-        .players-list img {
-            width:40px;
-            height:40px;
-            border-radius:50%;
-            object-fit:cover;
-            border:2px solid #333;
-        }
-
-        .players-list .player-name {
-            font-size:1em;
-            color:#333;
-            flex:1;
+            opacity: 0.7; /* Hover etkisini kaldırmak için */
+            transform: none;
         }
 
         /* Alert, Prompt, Invitation Modals */
@@ -706,6 +657,7 @@
             background-color:#c82333;
         }
 
+        /* Düello Seçim Ekranı */
         .duel-selection-container {
             display: none;
             position: relative;
@@ -831,51 +783,88 @@
             100% {transform: scale(1) rotate(0deg); color:#28a745;}
         }
 
-        .score-plus-one {
-            /* Eski efekt kaldırıldı */
-        }
-
-        /* Yeni +1 Efekti */
-        .animated-plus-one {
+        /* Oyundakiler Modal */
+        .players-overlay {
             position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 7em;
-            color: #28a745;
-            pointer-events: none;
-            z-index: 1000;
-            opacity: 1;
+            top: 0;
+            left: 0;
+            width:100%;
+            height:100%;
+            background:rgba(0,0,0,0.4);
+            display:none;
+            align-items:center;
+            justify-content:center;
+            z-index:9999999;
         }
 
-        @keyframes plus-one-move {
-            0% {
-                opacity:1;
-                transform: translate(-50%, -50%) translate(0px, 0px) scale(1);
-            }
-            100% {
-                opacity:0;
-                transform: translate(-50%, -50%) translate(300px, -300px) scale(0.5);
-            }
+        .players-content {
+            background:#fff;
+            padding:20px;
+            border-radius:10px;
+            width:90%;
+            max-width:400px;
+            box-shadow:0 0 10px rgba(0,0,0,0.2);
+            display:flex;
+            flex-direction:column;
+            gap:15px;
         }
 
-        /* "Oyunda" Butonu İçin Ek Stil */
-        .oyunda-button {
-            background-color: #f59e0b; /* Turuncu renk */
-            border: none;
-            border-radius: 5px;
-            color: white;
-            padding: 5px 10px;
-            font-size: 0.9em;
-            cursor: not-allowed;
-            opacity: 0.7;
+        .players-header {
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
         }
 
-        .oyunda-button:hover {
-            background-color: #d97706;
-            opacity: 0.7; /* Hover etkisini kaldırmak için */
-            transform: none;
+        .players-header h3 {
+            margin:0;
+            font-size:1.5em;
+            color:#333;
         }
+
+        .players-close {
+            background: none;
+            border:none;
+            font-size:1.2em;
+            cursor:pointer;
+            color:#333;
+        }
+
+        .players-list {
+            list-style:none;
+            padding:0;
+            margin:0;
+            display:flex;
+            flex-direction:column;
+            gap:10px;
+        }
+
+        .players-list li {
+            display:flex;
+            align-items:center;
+            gap:10px;
+            background:#f0f0f0;
+            padding:10px;
+            border-radius:5px;
+            justify-content: space-between;
+        }
+
+        .players-list img {
+            width:40px;
+            height:40px;
+            border-radius:50%;
+            object-fit:cover;
+            border:2px solid #333;
+        }
+
+        .players-list .player-name {
+            font-size:1em;
+            color:#333;
+            flex:1;
+        }
+
+        /* Yeni Eklenen Stil: Flowing Text */
+        /* Kayan yazı yerine sabit mesaj kullanılacak, bu yüzden bu stil kaldırıldı */
+
     </style>
 </head>
 <body>
@@ -997,7 +986,7 @@
             <span id="score"></span>
             <div class="score-message" id="score-message"></div>
             <img id="score-image" class="final-image" style="display:none;" alt="Sonuç Resmi">
-            <button class="final-back-button" id="final-back-button">Geri Dön</button>
+            <button class="end-game-button" id="final-back-button">Oyunu Sonlandır</button>
         </div>
     </div>
 
@@ -1023,7 +1012,6 @@
         </div>
         <div class="duel-controls">
             <button class="duel-start-button" id="duel-start-button" disabled>Düelloya Başla</button>
-            <button class="back-button" id="duel-back-button">Geri Dön</button>
         </div>
 
         <div class="duel-bottom-info">
@@ -1070,7 +1058,7 @@
 
         <div class="score-container" id="duel-final-container">
             <div class="winner-message" id="winner-message"></div>
-            <button class="final-back-button" id="duel-final-back-button">Çık</button>
+            <button class="end-game-button" id="duel-final-back-button">Oyunu Sonlandır</button>
         </div>
     </div>
 
@@ -1107,15 +1095,22 @@
 
     <!-- Arka Plan Müziği için Audio Elementi -->
     <audio id="duelBackgroundMusic" src="https://github.com/d4rkd4/audio-assets/raw/refs/heads/main/OYUN%202%20ARKA%20PLAN%20M%C3%9CZ%C4%B0%C4%9E%C4%B0.mp3" preload="auto"></audio>
+    <!-- Kazanan Ekranı için Yeni Audio Elementi -->
+    <audio id="winnerMusic" src="https://github.com/d4rkd4/audio-assets/raw/refs/heads/main/Awards%20Fanfare%20Winner%20Nomination%20Ceremony%20Background%20Music.mp3" preload="auto"></audio>
 
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
     <script>
-        // JavaScript Kodları (Güncellenmiş)
+        // JavaScript Kodları
 
+        // Kazanan ekranında müzik çalmak için yeni bir audio elementi seçiyoruz.
+        const winnerMusic = document.getElementById('winnerMusic');
+
+        // "Oyunu Sonlandır" butonuna eklenen event listener
         document.getElementById('duel-final-back-button').addEventListener('click', async () => {
+            await showAlert('🏆 Kupa verileriniz güncellendi. Tekrar giriş yapın.');
             if (currentDuelRef) {
                 try {
                     await currentDuelRef.remove();
@@ -1254,6 +1249,19 @@
                         const davetButton = document.createElement('button');
                         davetButton.textContent = 'Davet Et';
                         davetButton.className = 'davet-et-button';
+                        davetButton.style.backgroundColor = '#17a2b8';
+                        davetButton.style.color = 'white';
+                        davetButton.style.border = 'none';
+                        davetButton.style.borderRadius = '5px';
+                        davetButton.style.padding = '5px 10px';
+                        davetButton.style.cursor = 'pointer';
+                        davetButton.style.transition = 'background-color 0.2s';
+                        davetButton.addEventListener('mouseover', () => {
+                            davetButton.style.backgroundColor = '#138496';
+                        });
+                        davetButton.addEventListener('mouseout', () => {
+                            davetButton.style.backgroundColor = '#17a2b8';
+                        });
                         davetButton.addEventListener('click', () => {
                             sendInvitation(player);
                         });
@@ -1324,7 +1332,6 @@
         const duelSubjectSelect = document.getElementById('duel-subject-select');
         const duelTopicSelect = document.getElementById('duel-topic-select');
         const duelStartButton = document.getElementById('duel-start-button');
-        const duelBackButton = document.getElementById('duel-back-button');
 
         const duelInviterPhoto = document.getElementById('duel-inviter-photo');
         const duelInviterName = document.getElementById('duel-inviter-name');
@@ -1343,7 +1350,6 @@
 
         const duelFinalContainer = document.getElementById('duel-final-container');
         const winnerMessage = document.getElementById('winner-message');
-        const duelFinalBackButton = document.getElementById('duel-final-back-button');
 
         // Arka plan müziği elementini seçiyoruz
         const duelMusic = document.getElementById('duelBackgroundMusic');
@@ -1928,7 +1934,8 @@
                 messageClass = 'blue';
                 imageUrl = 'https://cdn.pixabay.com/photo/2019/10/28/14/35/emoticon-4584554_960_720.png';
             } else {
-                message = '';
+                message = '🏆 Kupa verileriniz güncellendi. Tekrar giriş yapın.';
+                messageClass = 'blue';
                 imageUrl = 'https://cdn.pixabay.com/photo/2020/09/14/18/33/sad-5571735_960_720.png';
             }
 
@@ -1943,8 +1950,16 @@
             scoreImage.style.display = 'block';
         }
 
-        // Bu event listener, düello oyununun sonunda "Geri Dön" butonunu ortak seçim ekranındaki işlevle değiştirir.
-        finalBackButton.addEventListener('click', async () => {
+        // Bu event listener, düello oyununun sonunda "Oyunu Sonlandır" butonunu özel işlevle değiştirir.
+        // "Oyunu Sonlandır" butonunun işlevi, önce uyarıyı gösterir, ardından eski işlevini sürdürür.
+        // Ayrıca, kazanan ekranında müziğin çalmasını sağlar.
+        document.getElementById('duel-final-back-button').addEventListener('click', async () => {
+            // Kazanan ekranında müziği çal
+            winnerMusic.play().catch(error => {
+                console.error("Kazanan müziği çalınamadı:", error);
+            });
+
+            await showAlert('🏆 Kupa verileriniz güncellendi. Tekrar giriş yapın.');
             if (currentDuelRef) {
                 try {
                     await currentDuelRef.remove();
@@ -2024,7 +2039,7 @@
         const alertOkButton = document.getElementById('alertOkButton');
 
         function showAlert(message) {
-            alertMessage.textContent = message;
+            alertMessage.textContent = message; // Sabit mesaj için textContent kullanıldı
             alertOverlay.style.display = 'flex';
             return new Promise(resolve => {
                 alertOkButton.onclick = () => {
@@ -2583,13 +2598,13 @@
                         fetchAndDisplayGameCup();
                     }
 
-                    // Set inDuel status to false for both players
-                    database.ref(`classes/${classId}/students/${winnerId}/inDuel`).set(false).catch(error => {
-                        console.error("inDuel durumu sıfırlanırken hata:", error);
-                    });
-                    database.ref(`classes/${classId}/students/${loserId}/inDuel`).set(false).catch(error => {
-                        console.error("inDuel durumu sıfırlanırken hata:", error);
-                    });
+                    // Set inDuel status to true (kept as true, so these lines are removed)
+                    // database.ref(`classes/${classId}/students/${winnerId}/inDuel`).set(false).catch(error => {
+                    //     console.error("inDuel durumu sıfırlanırken hata:", error);
+                    // });
+                    // database.ref(`classes/${classId}/students/${loserId}/inDuel`).set(false).catch(error => {
+                    //     console.error("inDuel durumu sıfırlanırken hata:", error);
+                    // });
                 }
 
                 // Display winner message
@@ -2602,14 +2617,16 @@
                 winnerMessage.textContent = message;
                 duelFinalContainer.style.display = 'flex';
 
+                // Kazanan ekranında müziği çal
+                winnerMusic.play().catch(error => {
+                    console.error("Kazanan müziği çalınamadı:", error);
+                });
+
                 // Kazanan ekranına geldiğinde arka plan müziğini durdur
                 duelMusic.pause();
                 duelMusic.currentTime = 0;
             });
         }
-
-        // Artık `duel-final-back-button` için ayrı bir event listener yok.
-        // `duel-final-back-button` artık yukarıda tanımlanan genel back-button işleviyle aynı işlevi görmektedir.
 
         function fetchAdminClasses() {
             database.ref('classes').once('value').then(snapshot => {
