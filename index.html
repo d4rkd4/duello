@@ -24,7 +24,7 @@
             padding: 20px;
         }
 
-        .container, .game-container, .student-selection-container, .admin-container, .single-player-game-container, .duel-selection-container, .duel-game-container, .ranking-container {
+        .container, .game-container, .student-selection-container, .admin-container, .single-player-game-container, .duel-selection-container, .duel-game-container {
             background: white;
             padding: 20px 30px;
             border-radius: 15px;
@@ -186,7 +186,7 @@
             transform: scale(1.1);
         }
 
-        .game-container, .student-selection-container, .admin-container, .single-player-game-container, .duel-selection-container, .duel-game-container, .ranking-container {
+        .game-container, .student-selection-container, .admin-container, .single-player-game-container, .duel-selection-container, .duel-game-container {
             display: none;
             flex-direction: column;
             gap: 20px;
@@ -340,7 +340,7 @@
                 font-size: 0.9em;
             }
 
-            .game-container, .student-selection-container, .admin-container, .single-player-game-container, .duel-selection-container, .duel-game-container, .ranking-container {
+            .game-container, .student-selection-container, .admin-container, .single-player-game-container, .duel-selection-container, .duel-game-container {
                 padding: 15px 20px;
             }
 
@@ -367,6 +367,12 @@
                 font-size: 0.9em;
                 padding: 10px 20px;
             }
+
+            /* Ranking Panel Mobil Uyumu */
+            .ranking-panel {
+                width: 80%;
+                max-width: 400px;
+            }
         }
 
         .error {
@@ -375,7 +381,7 @@
             text-align: center;
         }
 
-        .single-player-game-container, .duel-game-container, .ranking-container {
+        .single-player-game-container, .duel-game-container {
             display: none;
             flex-direction: column;
             gap: 20px;
@@ -893,19 +899,29 @@
             flex:1;
         }
 
-        /* Yeni Eklenen Stil: Ranking Screen */
-        .ranking-container {
-            display: none;
+        /* Yeni Eklenen Stil: Ranking Panel (Yan Panel) */
+        .ranking-panel {
+            position: fixed;
+            top: 0;
+            right: -100%; /* Başlangıçta görünmez */
+            width: 400px;
+            max-width: 90%;
+            height: 100%;
+            background-color: #fff;
+            box-shadow: -2px 0 5px rgba(0,0,0,0.3);
+            transition: right 0.3s ease;
+            z-index: 100000;
+            display: flex;
             flex-direction: column;
-            gap: 20px;
-            width: 100%;
-            max-width: 1000px;
-            justify-content: center;
-            align-items: center;
             padding: 20px;
+            overflow-y: auto;
         }
 
-        .ranking-container h2 {
+        .ranking-panel.open {
+            right: 0; /* Açıldığında görünür */
+        }
+
+        .ranking-panel h2 {
             font-size: 2em;
             color: #333;
             margin-bottom: 20px;
@@ -982,13 +998,14 @@
             color: white;
             width: 100%;
             max-width: 200px;
+            align-self: center;
+            margin-top: 10px;
         }
 
         .ranking-back-button:hover {
             background-color: #333;
             transform: scale(1.05);
         }
-
     </style>
 </head>
 <body>
@@ -1048,24 +1065,26 @@
         </div>
     </div>
 
-    <!-- Ranking Screen -->
-    <div class="container ranking-container" id="ranking-screen">
+    <!-- Ranking Panel (Yan Panel - Yeni Eklendi) -->
+    <div class="ranking-panel" id="rankingPanel">
         <h2>Kupa Sıralaması</h2>
-        <table class="ranking-table" id="ranking-table">
-            <thead>
-                <tr>
-                    <th>Rank</th>
-                    <th>Fotoğraf</th>
-                    <th>İsim</th>
-                    <th>Sınıf</th>
-                    <th>Kupa Skoru</th>
-                </tr>
-            </thead>
-            <tbody id="ranking-table-body">
-                <!-- Sıralama verileri buraya eklenecek -->
-            </tbody>
-        </table>
-        <button class="ranking-back-button">Geri Dön</button>
+        <div class="ranking-table-container">
+            <table class="ranking-table" id="ranking-table">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Fotoğraf</th>
+                        <th>İsim</th>
+                        <th>Sınıf</th>
+                        <th>Kupa Skoru</th>
+                    </tr>
+                </thead>
+                <tbody id="ranking-table-body">
+                    <!-- Sıralama verileri buraya eklenecek -->
+                </tbody>
+            </table>
+        </div>
+        <button class="ranking-back-button" id="rankingBackButton">Geri Dön</button>
     </div>
 
     <!-- Tek Kişilik Oyun Ekranı -->
@@ -1211,24 +1230,26 @@
         </div>
     </div>
 
-    <!-- Ranking Screen (Yeni Eklendi) -->
-    <div class="container ranking-container" id="ranking-screen">
+    <!-- Ranking Panel (Yan Panel) -->
+    <div class="ranking-panel" id="rankingPanel">
         <h2>Kupa Sıralaması</h2>
-        <table class="ranking-table" id="ranking-table">
-            <thead>
-                <tr>
-                    <th>Rank</th>
-                    <th>Fotoğraf</th>
-                    <th>İsim</th>
-                    <th>Sınıf</th>
-                    <th>Kupa Skoru</th>
-                </tr>
-            </thead>
-            <tbody id="ranking-table-body">
-                <!-- Sıralama verileri buraya eklenecek -->
-            </tbody>
-        </table>
-        <button class="ranking-back-button">Geri Dön</button>
+        <div class="ranking-table-container">
+            <table class="ranking-table" id="ranking-table">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Fotoğraf</th>
+                        <th>İsim</th>
+                        <th>Sınıf</th>
+                        <th>Kupa Skoru</th>
+                    </tr>
+                </thead>
+                <tbody id="ranking-table-body">
+                    <!-- Sıralama verileri buraya eklenecek -->
+                </tbody>
+            </table>
+        </div>
+        <button class="ranking-back-button" id="rankingBackButton">Geri Dön</button>
     </div>
 
     <!-- Alert Modal -->
@@ -1462,7 +1483,7 @@
         const singlePlayerGameScreen = document.getElementById('single-player-game-screen');
         const duelSelectionScreen = document.getElementById('duel-selection-screen');
         const duelGameScreen = document.getElementById('duel-game-screen');
-        const rankingScreen = document.getElementById('ranking-screen'); // Yeni
+        const rankingPanel = document.getElementById('rankingPanel'); // Ranking Panel ID
 
         const loginButton = document.getElementById('login-button');
         const adminButton = document.getElementById('admin-button');
@@ -1529,10 +1550,10 @@
         // Arka plan müziği elementini seçiyoruz
         const duelMusic = document.getElementById('duelBackgroundMusic');
 
-        // Ranking Screen Elements
+        // Ranking Panel Elements
         const kupaSiralamaButton = document.getElementById('kupa-siralama-button');
         const rankingTableBody = document.getElementById('ranking-table-body');
-        const rankingBackButton = document.querySelector('.ranking-back-button');
+        const rankingBackButton = document.getElementById('rankingBackButton');
 
         let timer;
         let timeLeft = 45;
@@ -2142,6 +2163,17 @@
             resetGameScreens();
         });
 
+        // Kupa Sıralaması Butonuna Event Listener (Yan Panel Açma)
+        kupaSiralamaButton.addEventListener('click', () => {
+            rankingPanel.classList.add('open');
+            loadRanking(); // Sıralamayı yükle
+        });
+
+        // Ranking Back Button Event Listener (Yan Panel Kapatma)
+        rankingBackButton.addEventListener('click', () => {
+            rankingPanel.classList.remove('open');
+        });
+
         // Bu event listener, düello oyununun sonunda "Oyunu Sonlandır" butonunu özel işlevle değiştirir.
         // "Oyunu Sonlandır" butonunun işlevi, önce uyarıyı gösterir, ardından eski işlevini sürdürür.
         // Ayrıca, kazanan ekranında müziğin çalmasını sağlar.
@@ -2404,7 +2436,6 @@
             mainScreen.style.display = 'none';
             singlePlayerScreen.style.display = 'none';
             singlePlayerGameScreen.style.display = 'none';
-            rankingScreen.style.display = 'none'; // Ranking ekranını kapat
 
             duelSelectionScreen.style.display = 'flex';
 
@@ -2874,15 +2905,13 @@
 
         // Event Listener for "Kupa Sıralaması" Button
         kupaSiralamaButton.addEventListener('click', () => {
-            mainScreen.style.display = 'none';
-            rankingScreen.style.display = 'flex';
-            loadRanking();
+            rankingPanel.classList.add('open');
+            loadRanking(); // Sıralamayı yükle
         });
 
         // Event Listener for Ranking Back Button
         rankingBackButton.addEventListener('click', () => {
-            rankingScreen.style.display = 'none';
-            mainScreen.style.display = 'flex';
+            rankingPanel.classList.remove('open');
         });
 
         async function loadRanking() {
