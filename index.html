@@ -24,7 +24,7 @@
             padding: 20px;
         }
 
-        .container, .game-container, .student-selection-container, .admin-container, .single-player-game-container, .duel-selection-container, .duel-game-container {
+        .container, .game-container, .student-selection-container, .admin-container, .single-player-game-container, .duel-selection-container, .duel-game-container, .ranking-container {
             background: white;
             padding: 20px 30px;
             border-radius: 15px;
@@ -40,6 +40,7 @@
             align-items: center;
             justify-content: space-between;
             gap: 30px;
+            position: relative;
         }
 
         .student-info {
@@ -131,6 +132,36 @@
             opacity: 0.9;
         }
 
+        .kupa-siralama-button {
+            background-color: #FFD700; /* Altın rengi */
+            color: #333;
+            background-image: linear-gradient(45deg, #FFD700, #FFA500);
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kupa-siralama-button::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 215, 0, 0.2);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% {
+                transform: rotate(45deg) translate(-100%, -100%);
+            }
+            100% {
+                transform: rotate(45deg) translate(100%, 100%);
+            }
+        }
+
         .admin-button {
             background-color: #FF5722;
             width: 50px;
@@ -155,7 +186,7 @@
             transform: scale(1.1);
         }
 
-        .game-container, .student-selection-container, .admin-container, .single-player-game-container, .duel-selection-container, .duel-game-container {
+        .game-container, .student-selection-container, .admin-container, .single-player-game-container, .duel-selection-container, .duel-game-container, .ranking-container {
             display: none;
             flex-direction: column;
             gap: 20px;
@@ -192,7 +223,7 @@
             background-color: #fff;
         }
 
-        .back-button, .start-game-button, .login-button, .admin-back-button, .duel-start-button {
+        .back-button, .start-game-button, .login-button, .admin-back-button, .duel-start-button, .ranking-back-button {
             padding: 12px 25px;
             border: none;
             border-radius: 8px;
@@ -202,14 +233,14 @@
             margin-top: 20px;
         }
 
-        .back-button, .admin-back-button {
+        .back-button, .admin-back-button, .ranking-back-button {
             background-color: #555;
             color: white;
             width: 100%;
             max-width: 200px;
         }
 
-        .back-button:hover, .admin-back-button:hover {
+        .back-button:hover, .admin-back-button:hover, .ranking-back-button:hover {
             background-color: #333;
             transform: scale(1.05);
         }
@@ -304,12 +335,12 @@
                 font-size: 1.2em;
             }
 
-            .buttons button, .login-button, .admin-button {
+            .buttons button, .login-button, .admin-button, .kupa-siralama-button {
                 padding: 12px;
                 font-size: 0.9em;
             }
 
-            .game-container, .student-selection-container, .admin-container, .single-player-game-container, .duel-selection-container, .duel-game-container {
+            .game-container, .student-selection-container, .admin-container, .single-player-game-container, .duel-selection-container, .duel-game-container, .ranking-container {
                 padding: 15px 20px;
             }
 
@@ -319,7 +350,7 @@
                 height: 45px; 
             }
 
-            .back-button, .start-game-button, .login-button, .admin-back-button, .duel-start-button {
+            .back-button, .start-game-button, .login-button, .admin-back-button, .duel-start-button, .ranking-back-button {
                 padding: 10px 20px;
                 font-size: 0.9em;
             }
@@ -344,7 +375,7 @@
             text-align: center;
         }
 
-        .single-player-game-container, .duel-game-container {
+        .single-player-game-container, .duel-game-container, .ranking-container {
             display: none;
             flex-direction: column;
             gap: 20px;
@@ -531,7 +562,7 @@
             height: auto;
         }
 
-        /* Yeni Eklenen Stil: End Game Button */
+        /* Yeni Eklenen Stil: End Game Button (Geri Dön) */
         .end-game-button {
             background-color: #007BFF; /* Mavi renk */
             color: white;
@@ -862,8 +893,101 @@
             flex:1;
         }
 
-        /* Yeni Eklenen Stil: Flowing Text */
-        /* Kayan yazı yerine sabit mesaj kullanılacak, bu yüzden bu stil kaldırıldı */
+        /* Yeni Eklenen Stil: Ranking Screen */
+        .ranking-container {
+            display: none;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+            max-width: 1000px;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .ranking-container h2 {
+            font-size: 2em;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .ranking-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .ranking-table th, .ranking-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+            font-size: 1em;
+        }
+
+        .ranking-table th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+
+        .ranking-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .ranking-table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .ranking-player-photo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        /* Top 3 özel stiller */
+        .ranking-table tr.top-1 {
+            background-color: #FFD700 !important; /* Altın */
+            animation: pulse 2s infinite;
+        }
+
+        .ranking-table tr.top-2 {
+            background-color: #C0C0C0 !important; /* Gümüş */
+            animation: pulse 2s infinite;
+        }
+
+        .ranking-table tr.top-3 {
+            background-color: #CD7F32 !important; /* Bronz */
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 20px rgba(0,0,0,0.4);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            }
+        }
+
+        /* Ranking Back Button */
+        .ranking-back-button {
+            background-color: #555;
+            color: white;
+            width: 100%;
+            max-width: 200px;
+        }
+
+        .ranking-back-button:hover {
+            background-color: #333;
+            transform: scale(1.05);
+        }
 
     </style>
 </head>
@@ -917,7 +1041,31 @@
         <div class="buttons">
             <button class="single-player">Tek Kişilik Oyun</button>
             <button class="oyundakiler-button" id="oyundakiler-button">Oyundakiler</button>
+            <!-- Yeni Eklenen "Kupa Sıralaması" Butonu -->
+            <button class="kupa-siralama-button" id="kupa-siralama-button">
+                Kupa Sıralaması
+            </button>
         </div>
+    </div>
+
+    <!-- Ranking Screen -->
+    <div class="container ranking-container" id="ranking-screen">
+        <h2>Kupa Sıralaması</h2>
+        <table class="ranking-table" id="ranking-table">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Fotoğraf</th>
+                    <th>İsim</th>
+                    <th>Sınıf</th>
+                    <th>Kupa Skoru</th>
+                </tr>
+            </thead>
+            <tbody id="ranking-table-body">
+                <!-- Sıralama verileri buraya eklenecek -->
+            </tbody>
+        </table>
+        <button class="ranking-back-button">Geri Dön</button>
     </div>
 
     <!-- Tek Kişilik Oyun Ekranı -->
@@ -986,7 +1134,8 @@
             <span id="score"></span>
             <div class="score-message" id="score-message"></div>
             <img id="score-image" class="final-image" style="display:none;" alt="Sonuç Resmi">
-            <button class="end-game-button" id="final-back-button">Oyunu Sonlandır</button>
+            <!-- "Geri Dön" butonu -->
+            <button class="end-game-button" id="final-back-button">Geri Dön</button>
         </div>
     </div>
 
@@ -1062,6 +1211,26 @@
         </div>
     </div>
 
+    <!-- Ranking Screen (Yeni Eklendi) -->
+    <div class="container ranking-container" id="ranking-screen">
+        <h2>Kupa Sıralaması</h2>
+        <table class="ranking-table" id="ranking-table">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Fotoğraf</th>
+                    <th>İsim</th>
+                    <th>Sınıf</th>
+                    <th>Kupa Skoru</th>
+                </tr>
+            </thead>
+            <tbody id="ranking-table-body">
+                <!-- Sıralama verileri buraya eklenecek -->
+            </tbody>
+        </table>
+        <button class="ranking-back-button">Geri Dön</button>
+    </div>
+
     <!-- Alert Modal -->
     <div class="alert-overlay" id="alertOverlay">
         <div class="alert-content">
@@ -1110,6 +1279,11 @@
 
         // "Oyunu Sonlandır" butonuna eklenen event listener
         document.getElementById('duel-final-back-button').addEventListener('click', async () => {
+            // Kazanan ekranında müziği çal
+            winnerMusic.play().catch(error => {
+                console.error("Kazanan müziği çalınamadı:", error);
+            });
+
             await showAlert('🏆 Kupa verileriniz güncellendi. Tekrar giriş yapın.');
             if (currentDuelRef) {
                 try {
@@ -1288,6 +1462,7 @@
         const singlePlayerGameScreen = document.getElementById('single-player-game-screen');
         const duelSelectionScreen = document.getElementById('duel-selection-screen');
         const duelGameScreen = document.getElementById('duel-game-screen');
+        const rankingScreen = document.getElementById('ranking-screen'); // Yeni
 
         const loginButton = document.getElementById('login-button');
         const adminButton = document.getElementById('admin-button');
@@ -1353,6 +1528,11 @@
 
         // Arka plan müziği elementini seçiyoruz
         const duelMusic = document.getElementById('duelBackgroundMusic');
+
+        // Ranking Screen Elements
+        const kupaSiralamaButton = document.getElementById('kupa-siralama-button');
+        const rankingTableBody = document.getElementById('ranking-table-body');
+        const rankingBackButton = document.querySelector('.ranking-back-button');
 
         let timer;
         let timeLeft = 45;
@@ -1454,6 +1634,7 @@
 
         adminButton.addEventListener('click', () => {
             studentSelectionScreen.style.display = 'none';
+            mainScreen.style.display = 'none';
             adminScreen.style.display = 'flex';
         });
 
@@ -1472,6 +1653,10 @@
                         console.error("Düello referansı kaldırılırken hata:", error);
                         showAlert('Düello referansı kaldırılırken hata oluştu.');
                     });
+                } else if (currentScreen.id === 'ranking-screen') {
+                    // Ranking ekranından geri dön
+                    rankingScreen.style.display = 'none';
+                    mainScreen.style.display = 'flex';
                 } else {
                     currentScreen.style.display = 'none';
                     mainScreen.style.display = 'flex';
@@ -1950,6 +2135,13 @@
             scoreImage.style.display = 'block';
         }
 
+        // "Geri Dön" butonu için event listener
+        finalBackButton.addEventListener('click', () => {
+            singlePlayerGameScreen.style.display = 'none';
+            mainScreen.style.display = 'flex';
+            resetGameScreens();
+        });
+
         // Bu event listener, düello oyununun sonunda "Oyunu Sonlandır" butonunu özel işlevle değiştirir.
         // "Oyunu Sonlandır" butonunun işlevi, önce uyarıyı gösterir, ardından eski işlevini sürdürür.
         // Ayrıca, kazanan ekranında müziğin çalmasını sağlar.
@@ -2212,6 +2404,7 @@
             mainScreen.style.display = 'none';
             singlePlayerScreen.style.display = 'none';
             singlePlayerGameScreen.style.display = 'none';
+            rankingScreen.style.display = 'none'; // Ranking ekranını kapat
 
             duelSelectionScreen.style.display = 'flex';
 
@@ -2677,6 +2870,100 @@
                 console.error("gameCup çekilirken hata:", error);
                 document.getElementById('game-cup-score').textContent = '0';
             });
+        }
+
+        // Event Listener for "Kupa Sıralaması" Button
+        kupaSiralamaButton.addEventListener('click', () => {
+            mainScreen.style.display = 'none';
+            rankingScreen.style.display = 'flex';
+            loadRanking();
+        });
+
+        // Event Listener for Ranking Back Button
+        rankingBackButton.addEventListener('click', () => {
+            rankingScreen.style.display = 'none';
+            mainScreen.style.display = 'flex';
+        });
+
+        async function loadRanking() {
+            rankingTableBody.innerHTML = ''; // Temizle
+
+            // Tüm öğrencileri çek ve sıralama yap
+            const snapshot = await database.ref('classes').once('value');
+            let players = [];
+
+            if (snapshot.exists()) {
+                snapshot.forEach(classSnapshot => {
+                    const classId = classSnapshot.key;
+                    const className = classSnapshot.val().name ? classSnapshot.val().name : classId;
+                    const studentsSnapshot = classSnapshot.child('students');
+                    if (studentsSnapshot.exists()) {
+                        studentsSnapshot.forEach(studentSnapshot => {
+                            const studentId = studentSnapshot.key;
+                            const studentData = studentSnapshot.val();
+                            const gameCup = studentData.gameCup || 0;
+                            const photo = studentData.photo || 'https://via.placeholder.com/50';
+                            players.push({
+                                name: studentData.name || 'Anonim',
+                                className: className,
+                                gameCup: gameCup,
+                                photo: photo
+                            });
+                        });
+                    }
+                });
+
+                // Oyun kupasına göre sırala (büyükten küçüğe)
+                players.sort((a, b) => b.gameCup - a.gameCup);
+
+                // İlk 25 oyuncuyu al
+                const topPlayers = players.slice(0, 25);
+
+                topPlayers.forEach((player, index) => {
+                    const tr = document.createElement('tr');
+                    // Rank
+                    const rankTd = document.createElement('td');
+                    rankTd.textContent = index + 1;
+                    tr.appendChild(rankTd);
+
+                    // Fotoğraf
+                    const photoTd = document.createElement('td');
+                    const img = document.createElement('img');
+                    img.src = player.photo;
+                    img.alt = `${player.name} Fotoğrafı`;
+                    img.className = 'ranking-player-photo';
+                    photoTd.appendChild(img);
+                    tr.appendChild(photoTd);
+
+                    // İsim
+                    const nameTd = document.createElement('td');
+                    nameTd.textContent = player.name;
+                    tr.appendChild(nameTd);
+
+                    // Sınıf
+                    const classTd = document.createElement('td');
+                    classTd.textContent = player.className;
+                    tr.appendChild(classTd);
+
+                    // Kupa Skoru
+                    const scoreTd = document.createElement('td');
+                    scoreTd.textContent = player.gameCup;
+                    tr.appendChild(scoreTd);
+
+                    // Top 3 için özel sınıflar ekle
+                    if (index === 0) {
+                        tr.classList.add('top-1');
+                    } else if (index === 1) {
+                        tr.classList.add('top-2');
+                    } else if (index === 2) {
+                        tr.classList.add('top-3');
+                    }
+
+                    rankingTableBody.appendChild(tr);
+                });
+            } else {
+                rankingTableBody.innerHTML = '<tr><td colspan="5">Henüz sıralama yapılmadı.</td></tr>';
+            }
         }
     </script>
 </body>
