@@ -1230,28 +1230,6 @@
         </div>
     </div>
 
-    <!-- Ranking Panel (Yan Panel) -->
-    <div class="ranking-panel" id="rankingPanel">
-        <h2>Kupa Sıralaması</h2>
-        <div class="ranking-table-container">
-            <table class="ranking-table" id="ranking-table">
-                <thead>
-                    <tr>
-                        <th>Rank</th>
-                        <th>Fotoğraf</th>
-                        <th>İsim</th>
-                        <th>Sınıf</th>
-                        <th>Kupa Skoru</th>
-                    </tr>
-                </thead>
-                <tbody id="ranking-table-body">
-                    <!-- Sıralama verileri buraya eklenecek -->
-                </tbody>
-            </table>
-        </div>
-        <button class="ranking-back-button" id="rankingBackButton">Geri Dön</button>
-    </div>
-
     <!-- Alert Modal -->
     <div class="alert-overlay" id="alertOverlay">
         <div class="alert-content">
@@ -1674,10 +1652,6 @@
                         console.error("Düello referansı kaldırılırken hata:", error);
                         showAlert('Düello referansı kaldırılırken hata oluştu.');
                     });
-                } else if (currentScreen.id === 'ranking-screen') {
-                    // Ranking ekranından geri dön
-                    rankingScreen.style.display = 'none';
-                    mainScreen.style.display = 'flex';
                 } else {
                     currentScreen.style.display = 'none';
                     mainScreen.style.display = 'flex';
@@ -2903,11 +2877,6 @@
             });
         }
 
-        // Event Listener for "Kupa Sıralaması" Button
-        kupaSiralamaButton.addEventListener('click', () => {
-            rankingPanel.classList.add('open');
-            loadRanking(); // Sıralamayı yükle
-        });
 
         // Event Listener for Ranking Back Button
         rankingBackButton.addEventListener('click', () => {
