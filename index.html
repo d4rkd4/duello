@@ -223,7 +223,7 @@
             background-color: #fff;
         }
 
-        .back-button, .start-game-button, .login-button, .admin-back-button, .duel-start-button, .ranking-back-button {
+        .back-button, .start-game-button, .login-button, .admin-back-button, .duel-start-button, .ranking-back-button, .close-ranking-button {
             padding: 12px 25px;
             border: none;
             border-radius: 8px;
@@ -233,14 +233,14 @@
             margin-top: 20px;
         }
 
-        .back-button, .admin-back-button, .ranking-back-button {
+        .back-button, .admin-back-button, .ranking-back-button, .close-ranking-button {
             background-color: #555;
             color: white;
             width: 100%;
             max-width: 200px;
         }
 
-        .back-button:hover, .admin-back-button:hover, .ranking-back-button:hover {
+        .back-button:hover, .admin-back-button:hover, .ranking-back-button:hover, .close-ranking-button:hover {
             background-color: #333;
             transform: scale(1.05);
         }
@@ -350,7 +350,7 @@
                 height: 45px; 
             }
 
-            .back-button, .start-game-button, .login-button, .admin-back-button, .duel-start-button, .ranking-back-button {
+            .back-button, .start-game-button, .login-button, .admin-back-button, .duel-start-button, .ranking-back-button, .close-ranking-button {
                 padding: 10px 20px;
                 font-size: 0.9em;
             }
@@ -866,6 +866,10 @@
             color:#333;
         }
 
+        .players-close:hover {
+            color:#000;
+        }
+
         .players-list {
             list-style:none;
             padding:0;
@@ -926,6 +930,28 @@
             color: #333;
             margin-bottom: 20px;
             text-align: center;
+            position: relative;
+        }
+
+        /* Ranking Panel İçin Geri Dön Butonu */
+        .ranking-back-button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            background-color: #555;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.2s;
+            font-size: 1em;
+            margin-top: 20px;
+            align-self: center;
+            width: 100%;
+            max-width: 200px;
+        }
+
+        .ranking-back-button:hover {
+            background-color: #333;
+            transform: scale(1.05);
         }
 
         .ranking-table {
@@ -990,21 +1016,6 @@
                 transform: scale(1);
                 box-shadow: 0 0 10px rgba(0,0,0,0.2);
             }
-        }
-
-        /* Ranking Back Button */
-        .ranking-back-button {
-            background-color: #555;
-            color: white;
-            width: 100%;
-            max-width: 200px;
-            align-self: center;
-            margin-top: 10px;
-        }
-
-        .ranking-back-button:hover {
-            background-color: #333;
-            transform: scale(1.05);
         }
     </style>
 </head>
@@ -1275,32 +1286,16 @@
     <script>
         // JavaScript Kodları
 
-        // Kazanan ekranında müzik çalmak için yeni bir audio elementi seçiyoruz.
+        // Audio Elementlerini Seçme
+        const duelMusic = document.getElementById('duelBackgroundMusic');
         const winnerMusic = document.getElementById('winnerMusic');
-
-        // Tek Kişilik Oyun Müziği
         const singlePlayerQuestionMusic = document.getElementById('singlePlayerQuestionMusic');
 
         // "Oyunu Sonlandır" butonuna eklenen event listener
         document.getElementById('duel-final-back-button').addEventListener('click', async () => {
-            // Kazanan ekranında müziği çal
-            winnerMusic.play().catch(error => {
-                console.error("Kazanan müziği çalınamadı:", error);
-            });
-
             await showAlert('🏆 Kupa verileriniz güncellendi. Tekrar giriş yapın.');
             if (currentDuelRef) {
                 try {
-                    // Her iki oyuncunun inDuel durumunu false yap
-                    const duelData = await currentDuelRef.once('value');
-                    if (duelData.exists()) {
-                        const data = duelData.val();
-                        const inviterRef = database.ref(`classes/${data.inviter.classId}/students/${data.inviter.studentId}/inDuel`);
-                        const invitedRef = database.ref(`classes/${data.invited.classId}/students/${data.invited.studentId}/inDuel`);
-                        await inviterRef.set(false);
-                        await invitedRef.set(false);
-                    }
-
                     await currentDuelRef.remove();
                     currentDuelRef = null;
                     isInviter = false;
@@ -1308,7 +1303,7 @@
                     window.location.reload();
                 } catch (error) {
                     console.error("Düello referansı kaldırılırken hata:", error);
-                    showAlert('Düello referansı kaldırılırken hata oluştu.');
+                    await showAlert('Düello referansı kaldırılırken hata oluştu.');
                 }
             } else {
                 window.location.reload();
@@ -1355,11 +1350,9 @@
         const database = firebase.database();
         const auth = firebase.auth();
 
-        // Kodu uzun olduğu için açıklamalar önceki mesajlarda yapıldı.
-        // Bu kod son halidir ve tüm istenen değişiklikleri içerir.
-        // İstediğiniz tüm özellikler: orantılı ortak seçim ekranı, düello bitince reset, metinler tam gösteriliyor, vs. mevcut.
-        
+        // Diğer değişkenler
         let classNameMap = {};
+        let duelEnded = false; // Eklendi
 
         const playersOverlay = document.getElementById('playersOverlay');
         const playersCloseButton = document.getElementById('playersCloseButton');
@@ -1557,9 +1550,6 @@
 
         const duelFinalContainer = document.getElementById('duel-final-container');
         const winnerMessage = document.getElementById('winner-message');
-
-        // Arka plan müziği elementini seçiyoruz
-        const duelMusic = document.getElementById('duelBackgroundMusic');
 
         // Ranking Panel Elements
         const kupaSiralamaButton = document.getElementById('kupa-siralama-button');
@@ -2115,6 +2105,10 @@
             document.querySelector('.timer-container').style.display = 'block';
             document.querySelector('.question-container').style.display = 'flex';
             optionsContainer.style.display = 'flex';
+
+            // Timer'ı sıfırla ve başlat
+            resetTimer();
+            startTimer();
         }
 
         function selectOption(e) {
@@ -2204,6 +2198,14 @@
 
             scoreImage.src = imageUrl;
             scoreImage.style.display = 'block';
+
+            // Müzik çalma işlemi burada
+            if (score > 5) { // Örneğin, belirli bir başarı düzeyinde müzik çalınır
+                winnerMusic.currentTime = 0;
+                winnerMusic.play().catch(error => {
+                    console.error("Kazanan müziği çalınamadı:", error);
+                });
+            }
         }
 
         // "Geri Dön" butonu için event listener
@@ -2227,38 +2229,7 @@
         // Bu event listener, düello oyununun sonunda "Oyunu Sonlandır" butonunu özel işlevle değiştirir.
         // "Oyunu Sonlandır" butonunun işlevi, önce uyarıyı gösterir, ardından eski işlevini sürdürür.
         // Ayrıca, kazanan ekranında müziğin çalmasını sağlar.
-        document.getElementById('duel-final-back-button').addEventListener('click', async () => {
-            // Kazanan ekranında müziği çal
-            winnerMusic.play().catch(error => {
-                console.error("Kazanan müziği çalınamadı:", error);
-            });
-
-            await showAlert('🏆 Kupa verileriniz güncellendi. Tekrar giriş yapın.');
-            if (currentDuelRef) {
-                try {
-                    // Her iki oyuncunun inDuel durumunu false yap
-                    const duelData = await currentDuelRef.once('value');
-                    if (duelData.exists()) {
-                        const data = duelData.val();
-                        const inviterRef = database.ref(`classes/${data.inviter.classId}/students/${data.inviter.studentId}/inDuel`);
-                        const invitedRef = database.ref(`classes/${data.invited.classId}/students/${data.invited.studentId}/inDuel`);
-                        await inviterRef.set(false);
-                        await invitedRef.set(false);
-                    }
-
-                    await currentDuelRef.remove();
-                    currentDuelRef = null;
-                    isInviter = false;
-                    duelGameStarted = false;
-                    window.location.reload();
-                } catch (error) {
-                    console.error("Düello referansı kaldırılırken hata:", error);
-                    showAlert('Düello referansı kaldırılırken hata oluştu.');
-                }
-            } else {
-                window.location.reload();
-            }
-        });
+        // (Bu kısım artık düello bitişte kazanan ekranında müzik çaldığı için kaldırıldı)
 
         function resetTimer() {
             clearInterval(timer);
@@ -2298,8 +2269,7 @@
                 if (snapshot.exists()) {
                     snapshot.forEach(childSnapshot => {
                         const classId = childSnapshot.key;
-                        const classData = childSnapshot.val();
-                        const className = classData.name ? classData.name : classId; // Sınıf adını alıyoruz
+                        const className = childSnapshot.val().name ? childSnapshot.val().name : classId; // Sınıf adını alıyoruz
 
                         console.log(`Class ID: ${classId}, Class Name: ${className}`);
 
@@ -2389,6 +2359,7 @@
         }
 
         function startInvitationListener(studentId) {
+            // Davetleri dinle
             database.ref(`invitations/${studentId}`).on('value', snapshot => {
                 if (snapshot.exists()) {
                     const data = snapshot.val();
@@ -2402,6 +2373,7 @@
                 }
             });
 
+            // Düelloları dinle
             database.ref('duels').orderByChild('inviter/studentId').equalTo(studentId).on('child_added', snapshot => {
                 if (currentDuelRef == null) {
                     currentDuelRef = snapshot.ref;
@@ -2420,8 +2392,8 @@
 
             // Düello referansı silindiğinde (örneğin, bir oyuncu bağlantısını kestiğinde)
             database.ref('duels').on('child_removed', snapshot => {
-                if (currentDuelRef && snapshot.key === currentDuelRef.key) {
-                    showAlert('Diğer Oyuncunun Bağlantısı Koptu. Ana menüye dönüyorsunuz.')
+                if (currentDuelRef && snapshot.key === currentDuelRef.key && !duelEnded) { // duelEnded kontrolü eklendi
+                    showAlert('Rakibin bağlantısı kesildi. Ana menüye yönlendiriliyorsunuz.')
                         .then(() => {
                             duelGameScreen.style.display = 'none';
                             duelSelectionScreen.style.display = 'none';
@@ -2460,6 +2432,9 @@
                         currentInvitation = null;
                         return;
                     }
+
+                    // Yeni: "Oyundakiler" ekranını kapat
+                    playersOverlay.style.display = 'none';
 
                     invitationOverlay.style.display = 'none';
                     await createDuelSession(currentInvitation.invitedByStudentId, currentInvitation.invitedByClassId, currentInvitation.invitedByName, currentInvitation.invitedByPhoto);
@@ -2512,6 +2487,9 @@
 
             duelSelectionScreen.style.display = 'flex';
 
+            // Ranking panel kapat
+            rankingPanel.classList.remove('open');
+
             database.ref('championData/headings').once('value').then(snapshot => {
                 duelClassSelect.innerHTML = '<option value="">Seçiniz</option>';
                 if (snapshot.exists()) {
@@ -2525,6 +2503,9 @@
                     });
                 }
             });
+
+            // Yeni: Oyundakiler overlay'ini kapat
+            playersOverlay.style.display = 'none';
 
             currentDuelRef.on('value', snap => {
                 if (snap.exists()) {
@@ -2541,6 +2522,7 @@
 
                     if (data.gameStarted && !duelGameStarted) {
                         duelGameStarted = true; 
+                        duelEnded = false; // Duel başladığında bayrağı sıfırla
                         startDuelGame(data);
                     }
 
@@ -2554,13 +2536,15 @@
                     }
                 } else {
                     // Duel reference removed (diğer oyuncu çıkmış olabilir)
-                    showAlert('Diğer Oyuncunun Bağlantısı Koptu. Ana menüye dönüyorsunuz.')
-                        .then(() => {
-                            duelGameScreen.style.display = 'none';
-                            duelSelectionScreen.style.display = 'none';
-                            mainScreen.style.display = 'flex';
-                            resetDuelGameState();
-                        });
+                    if (!duelEnded) { // duelEnded kontrolü eklenerek sadece düello bitmemişse uyarı göster
+                        showAlert('Rakibin bağlantısı kesildi. Ana menüye yönlendiriliyorsunuz.')
+                            .then(() => {
+                                duelGameScreen.style.display = 'none';
+                                duelSelectionScreen.style.display = 'none';
+                                mainScreen.style.display = 'flex';
+                                resetDuelGameState();
+                            });
+                    }
                 }
             });
         }
@@ -2580,6 +2564,7 @@
             clearInterval(duelTimer);
             duelQuestionLocked = false;
             duelGameStarted = false;
+            duelEnded = true; // Duel bittiğinde bayrağı ayarla
 
             // Düello Oyun Müziğini Durdur
             duelMusic.pause();
@@ -2937,13 +2922,19 @@
                 duelFinalContainer.style.display = 'flex';
 
                 // Kazanan ekranında müziği çal
-                winnerMusic.play().catch(error => {
-                    console.error("Kazanan müziği çalınamadı:", error);
-                });
+                if (message.startsWith('Kazanan') || message === "Berabere Kaldınız!") {
+                    winnerMusic.currentTime = 0;
+                    winnerMusic.play().catch(error => {
+                        console.error("Kazanan müziği çalınamadı:", error);
+                    });
+                }
 
                 // Kazanan ekranına geldiğinde arka plan müziğini durdur
                 duelMusic.pause();
                 duelMusic.currentTime = 0;
+
+                // Duelin bittiğini belirt
+                duelEnded = true;
             });
         }
 
@@ -2998,11 +2989,6 @@
             });
         }
 
-
-        // Event Listener for Ranking Back Button
-        rankingBackButton.addEventListener('click', () => {
-            rankingPanel.classList.remove('open');
-        });
 
         async function loadRanking() {
             rankingTableBody.innerHTML = ''; // Temizle
