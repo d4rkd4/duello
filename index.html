@@ -1951,6 +1951,12 @@
             duelTimerElement.style.color = '#ff0000';
             inviterCorrectCountEl.textContent = "0";
             invitedCorrectCountEl.textContent = "0";
+
+            // Yeni eklenen sıfırlamalar
+            gameQuestions = [];
+            currentQuestionIndex = 0;
+            score = 0;
+            clearInterval(timer);
         }
 
         function resetAdminScreens() {
@@ -2006,6 +2012,11 @@
         }
 
         function displayCurrentQuestion() {
+            if (currentQuestionIndex >= gameQuestions.length) {
+                endGame();
+                return;
+            }
+
             const currentQuestion = gameQuestions[currentQuestionIndex];
             questionNumber.textContent = `Soru ${currentQuestionIndex + 1}/10`;
             const progressPercentage = ((currentQuestionIndex) / 10) * 100;
@@ -2036,6 +2047,13 @@
                 button.addEventListener('click', selectOption);
                 optionsContainer.appendChild(button);
             });
+
+            // Görünürlük ayarları
+            questionNumber.style.display = 'block';
+            document.querySelector('.progress-container').style.display = 'block';
+            document.querySelector('.timer-container').style.display = 'block';
+            document.querySelector('.question-container').style.display = 'flex';
+            optionsContainer.style.display = 'flex';
 
             resetTimer();
             startTimer();
@@ -2795,14 +2813,6 @@
                     if (winnerId === selectedStudent.studentId || loserId === selectedStudent.studentId) {
                         fetchAndDisplayGameCup();
                     }
-
-                    // Set inDuel status to true (kept as true, so these lines are removed)
-                    // database.ref(`classes/${classId}/students/${winnerId}/inDuel`).set(false).catch(error => {
-                    //     console.error("inDuel durumu sıfırlanırken hata:", error);
-                    // });
-                    // database.ref(`classes/${classId}/students/${loserId}/inDuel`).set(false).catch(error => {
-                    //     console.error("inDuel durumu sıfırlanırken hata:", error);
-                    // });
                 }
 
                 // Display winner message
