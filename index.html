@@ -6,7 +6,53 @@
     <title>Şampiyonlar Düellosu</title>
     <!-- Comfortaa Font -->
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&display=swap" rel="stylesheet">
+    
     <style>
+    @media (max-width: 768px) {
+        /* Ensure text never overflows */
+        body {
+            font-size: 14px;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+        .ranking-panel {
+            width: 100%;
+            word-wrap: break-word; /* Force line breaks */
+            overflow-wrap: break-word;
+            text-align: center; /* Center text for better appearance */
+        }
+        .ranking-table th, .ranking-table td {
+            font-size: 0.8em; /* Smaller text for mobile */
+            padding: 6px; /* Compact padding */
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            text-align: center; /* Align all text in the table */
+        }
+        .ranking-back-button {
+            font-size: 0.9em;
+            padding: 10px 15px;
+        }
+        .score-message, .winner-message, .final-message {
+            font-size: 1.5em; /* Smaller text for mobile screens */
+            text-align: center;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+        .final-image {
+            width: 80px; /* Smaller image for mobile */
+            height: auto;
+        }
+        .question-container, .options-container {
+            padding: 10px;
+            font-size: 0.9em; /* Compact font size */
+            text-align: center;
+        }
+        .option-button {
+            font-size: 0.8em;
+            padding: 8px 12px;
+            text-overflow: ellipsis; /* Truncate text if too long */
+        }
+    }
+    
         /* CSS Kodları */
         * {
             box-sizing: border-box;
