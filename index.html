@@ -1,12 +1,13 @@
 <!DOCTYPE html>
+
 <html lang="tr">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Şampiyonlar Düellosu</title>
-    <!-- Comfortaa Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&display=swap" rel="stylesheet">
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Şampiyonlar Düellosu</title>
+<!-- Comfortaa Font -->
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<style>
         /* CSS Kodları */
         * {
             box-sizing: border-box;
@@ -1256,273 +1257,412 @@
                 box-shadow: 0 0 15px rgba(0,0,0,0.3);
             }
         }
+    
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+        .question-container {
+            width: 90%;
+            max-width: 600px;
+            height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #fffbea;
+            border: 3px solid #ff8a00;
+            border-radius: 15px;
+            padding: 10px;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+        .question-image {
+            max-width: 100%;
+            max-height: 150px;
+            object-fit: contain;
+        }
+        .question-text {
+            flex-grow: 1;
+            font-size: 1em;
+            overflow-y: auto;
+            text-align: center;
+            padding: 10px;
+        }
+        .options-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+        }
+        .option-button {
+            flex: 1 1 calc(50% - 20px);
+            max-width: 48%;
+            min-width: 120px;
+            padding: 10px;
+            font-size: 0.9em;
+            text-align: center;
+            border-radius: 10px;
+        }
+    
+        .question-container {
+            width: 90%;
+            max-width: 800px;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #fffbea;
+            border: 3px solid #ff8a00;
+            border-radius: 15px;
+            overflow: hidden;
+            box-sizing: border-box;
+            text-align: center;
+            position: relative;
+        }
+        .question-image {
+            flex-shrink: 0;
+            max-width: 100%;
+            max-height: 60%;
+            object-fit: contain;
+        }
+        .question-text {
+            flex-shrink: 1;
+            font-size: calc(1em + 0.5vw);
+            overflow-y: auto;
+            margin: 10px 0;
+            padding: 5px;
+            max-height: 40%;
+            word-wrap: break-word;
+            text-align: center;
+        }
+        .options-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            align-items: center;
+            width: 100%;
+            padding: 10px;
+            gap: 10px;
+            box-sizing: border-box;
+        }
+        .option-button {
+            flex: 1 1 calc(48% - 20px);
+            max-width: calc(48% - 20px);
+            height: 60px;
+            font-size: calc(0.9em + 0.3vw);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            word-wrap: break-word;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+    
+        /* General Scaling for Winner Screen, Main Screen, and Dynamic Text */
+        .winner-message {
+            font-size: calc(1.5em + 1vw);
+            text-align: center;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+        .score-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            max-width: 90%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .main-screen .student-name {
+            font-size: calc(1.5em + 0.5vw);
+            text-align: center;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+        }
+        .main-screen .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            gap: 10px;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .main-screen .buttons button {
+            flex: 1 1 calc(45% - 20px);
+            max-width: calc(45% - 20px);
+            height: 60px;
+            font-size: calc(1em + 0.3vw);
+            text-align: center;
+            border-radius: 8px;
+        }
+        .end-game-button {
+            font-size: calc(1em + 0.5vw);
+            text-align: center;
+            padding: 10px 15px;
+        }
+        .ranking-panel h2 {
+            font-size: calc(1.5em + 1vw);
+            text-align: center;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+        .ranking-table th, .ranking-table td {
+            font-size: calc(1em + 0.5vw);
+        }
     </style>
 </head>
 <body>
-    <!-- Oyundakiler Modal -->
-    <div class="players-overlay" id="playersOverlay">
-        <div class="players-content">
-            <div class="players-header">
-                <h3>Oyundakiler</h3>
-                <button class="players-close" id="playersCloseButton">✖</button>
-            </div>
-            <ul class="players-list" id="playersList"></ul>
-        </div>
-    </div>
-
-    <!-- Öğrenci Seçimi Ekranı -->
-    <div class="container student-selection-container" id="student-selection-screen">
-        <h2>Öğrenci Seçimi</h2>
-        <div class="table-section">
-            <h3>Öğrenci Seçme</h3>
-            <label for="selection-class-select">Sınıfı Seç:</label>
-            <select id="selection-class-select">
-                <option value="">Seçiniz</option>
-            </select>
-
-            <label for="selection-name-select">Öğrenciyi Seç:</label>
-            <select id="selection-name-select">
-                <option value="">Seçiniz</option>
-            </select>
-
-            <label for="student-password-input">Şifre Giriniz:</label>
-            <input type="password" id="student-password-input" placeholder="Şifre" disabled>
-        </div>
-        <button class="login-button" id="login-button" disabled>Giriş</button>
-        <button class="admin-button" id="admin-button">
-            <img src="https://cdn.pixabay.com/photo/2019/10/06/11/40/lock-4529981_1280.png" alt="Admin">
-        </button>
-        <div class="error" id="student-selection-error"></div>
-    </div>
-
-    <!-- Ana Ekran -->
-    <div class="container" id="main-screen" style="display: none;">
-        <div class="student-info">
-            <img src="" alt="Öğrenci Fotoğrafı" class="student-photo" id="student-photo" style="display: none;">
-            <div class="student-name" id="student-name"></div>
-            <div class="student-cup">
-                <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExMnk0M3A2MWR2aTJxenhoMjJ2dmRybXFzNjRlam9oNGlpM3p2eW0zayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/wX7I4l8SfFyG8rqhsd/giphy.webp" alt="Game Cup" class="game-cup-image">
-                <span class="game-cup-score" id="game-cup-score">0</span>
-            </div>
-        </div>
-        <div class="buttons">
-            <button class="single-player">Tek Kişilik Oyun</button>
-            <button class="oyundakiler-button" id="oyundakiler-button">Oyundakiler</button>
-            <!-- Yeni Eklenen "Kupa Sıralaması" Butonu -->
-            <button class="kupa-siralama-button" id="kupa-siralama-button">
+<!-- Oyundakiler Modal -->
+<div class="players-overlay" id="playersOverlay">
+<div class="players-content">
+<div class="players-header">
+<h3>Oyundakiler</h3>
+<button class="players-close" id="playersCloseButton">✖</button>
+</div>
+<ul class="players-list" id="playersList"></ul>
+</div>
+</div>
+<!-- Öğrenci Seçimi Ekranı -->
+<div class="container student-selection-container" id="student-selection-screen">
+<h2>Öğrenci Seçimi</h2>
+<div class="table-section">
+<h3>Öğrenci Seçme</h3>
+<label for="selection-class-select">Sınıfı Seç:</label>
+<select id="selection-class-select">
+<option value="">Seçiniz</option>
+</select>
+<label for="selection-name-select">Öğrenciyi Seç:</label>
+<select id="selection-name-select">
+<option value="">Seçiniz</option>
+</select>
+<label for="student-password-input">Şifre Giriniz:</label>
+<input disabled="" id="student-password-input" placeholder="Şifre" type="password"/>
+</div>
+<button class="login-button" disabled="" id="login-button">Giriş</button>
+<button class="admin-button" id="admin-button">
+<img alt="Admin" src="https://cdn.pixabay.com/photo/2019/10/06/11/40/lock-4529981_1280.png"/>
+</button>
+<div class="error" id="student-selection-error"></div>
+</div>
+<!-- Ana Ekran -->
+<div class="container" id="main-screen" style="display: none;">
+<div class="student-info">
+<img alt="Öğrenci Fotoğrafı" class="student-photo" id="student-photo" src="" style="display: none;"/>
+<div class="student-name" id="student-name"></div>
+<div class="student-cup">
+<img alt="Game Cup" class="game-cup-image" src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExMnk0M3A2MWR2aTJxenhoMjJ2dmRybXFzNjRlam9oNGlpM3p2eW0zayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/wX7I4l8SfFyG8rqhsd/giphy.webp"/>
+<span class="game-cup-score" id="game-cup-score">0</span>
+</div>
+</div>
+<div class="buttons">
+<button class="single-player">Tek Kişilik Oyun</button>
+<button class="oyundakiler-button" id="oyundakiler-button">Oyundakiler</button>
+<!-- Yeni Eklenen "Kupa Sıralaması" Butonu -->
+<button class="kupa-siralama-button" id="kupa-siralama-button">
                 Kupa Sıralaması
             </button>
-        </div>
-    </div>
-
-    <!-- Ranking Panel (Yan Panel - Yeni Eklendi) -->
-    <div class="ranking-panel" id="rankingPanel" style="display: none;">
-        <h2>Kupa Sıralaması</h2>
-        <div class="ranking-table-container">
-            <table class="ranking-table" id="ranking-table">
-                <thead>
-                    <tr>
-                        <th>Rank</th>
-                        <th>Fotoğraf</th>
-                        <th>İsim</th>
-                        <th>Sınıf</th>
-                        <th>Kupa Skoru</th>
-                    </tr>
-                </thead>
-                <tbody id="ranking-table-body">
-                    <!-- Sıralama verileri buraya eklenecek -->
-                </tbody>
-            </table>
-        </div>
-        <button class="ranking-back-button" id="rankingBackButton">Geri Dön</button>
-    </div>
-
-    <!-- Tek Kişilik Oyun Ekranı -->
-    <div class="game-container" id="single-player-screen">
-        <h2>Tek Kişilik Oyun</h2>
-        <div class="table-section">
-            <h3>Konu Belirleme</h3>
-            <label for="class-select">Sınıf Seç:</label>
-            <select id="class-select">
-                <option value="">Seçiniz</option>
-            </select>
-
-            <label for="subject-select">Ders Seç:</label>
-            <select id="subject-select">
-                <option value="">Seçiniz</option>
-            </select>
-
-            <label for="topic-select">Konu Seç:</label>
-            <select id="topic-select">
-                <option value="">Seçiniz</option>
-            </select>
-        </div>
-        <button class="start-game-button" id="start-game-button" disabled>Oyuna Başla</button>
-        <button class="back-button">Geri Dön</button>
-    </div>
-
-    <!-- Admin Ekranı -->
-    <div class="container admin-container" id="admin-screen">
-        <h2>Admin Paneli</h2>
-        <div class="table-section">
-            <h3>Sınıf Seçimi ve PIN Doğrulama</h3>
-            <label for="admin-class-select">Sınıf Seç:</label>
-            <select id="admin-class-select">
-                <option value="">Seçiniz</option>
-            </select>
-
-            <label for="admin-pin-input">Sınıf PIN'i Gir:</label>
-            <input type="password" id="admin-pin-input" placeholder="PIN">
-
-            <button class="login-button" id="admin-login-button" disabled>PIN Doğrula</button>
-        </div>
-        <div class="table-section" id="admin-student-section" style="display: none;">
-            <h3>Öğrenciler</h3>
-            <ul class="admin-student-list" id="admin-student-list"></ul>
-        </div>
-        <button class="admin-back-button">Geri Dön</button>
-    </div>
-
-    <!-- Tek Kişilik Oyun Sorular Ekranı -->
-    <div class="single-player-game-container" id="single-player-game-screen">
-        <div class="progress-container">
-            <div class="question-number" id="question-number">Soru 1/10</div>
-            <div class="progress-bar">
-                <div class="progress-bar-inner" id="progress-bar-inner"></div>
-            </div>
-        </div>
-        <div class="timer-container">
-            <div class="timer" id="timer">45</div>
-        </div>
-        <div class="question-container">
-            <img src="" alt="Soru Resmi" class="question-image" id="question-image" style="display: none;">
-            <div class="question-text" id="question-text">Soru metni burada olacak.</div>
-        </div>
-        <div class="options-container" id="options-container"></div>
-        <div class="score-container" id="score-container">
-            <span id="score"></span>
-            <div class="score-message" id="score-message"></div>
-            <img id="score-image" class="final-image" style="display:none;" alt="Sonuç Resmi">
-            <!-- "Geri Dön" butonu -->
-            <button class="end-game-button" id="final-back-button">Geri Dön</button>
-        </div>
-    </div>
-
-    <!-- Düello Seçim Ekranı -->
-    <div class="duel-selection-container" id="duel-selection-screen">
-        <h2>Ortak Seçim Ekranı</h2>
-        <div class="table-section">
-            <h3>Konu Belirleme</h3>
-            <label for="duel-class-select">Sınıf Seç:</label>
-            <select id="duel-class-select">
-                <option value="">Seçiniz</option>
-            </select>
-
-            <label for="duel-subject-select">Ders Seç:</label>
-            <select id="duel-subject-select">
-                <option value="">Seçiniz</option>
-            </select>
-
-            <label for="duel-topic-select">Konu Seç:</label>
-            <select id="duel-topic-select">
-                <option value="">Seçiniz</option>
-            </select>
-        </div>
-        <div class="duel-controls">
-            <button class="duel-start-button" id="duel-start-button" disabled>Düelloya Başla</button>
-        </div>
-
-        <div class="duel-bottom-info">
-            <div class="duel-player-info" id="duel-inviter-info">
-                <img src="" class="duel-player-photo" id="duel-inviter-photo">
-                <div class="duel-player-name" id="duel-inviter-name"></div>
-            </div>
-            <div class="duel-player-info" id="duel-invited-info">
-                <img src="" class="duel-player-photo" id="duel-invited-photo">
-                <div class="duel-player-name" id="duel-invited-name"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Düello Oyun Ekranı -->
-    <div class="duel-game-container" id="duel-game-screen">
-        <div class="progress-container">
-            <div class="question-number" id="duel-question-number">Soru 1/10</div>
-            <div class="progress-bar">
-                <div class="progress-bar-inner" id="duel-progress-bar-inner"></div>
-            </div>
-        </div>
-        <div class="timer-container">
-            <div class="timer" id="duel-timer">45</div>
-        </div>
-        <div class="question-container">
-            <img src="" alt="Soru Resmi" class="question-image" id="duel-question-image" style="display: none;">
-            <div class="question-text" id="duel-question-text">Soru metni burada olacak.</div>
-        </div>
-        <div class="options-container" id="duel-options-container"></div>
-
-        <div class="players-info-row">
-            <div class="duel-player-score" id="duel-player-inviter-score">
-                <img id="duel-player-inviter-photo" src="">
-                <div class="duel-player-name" id="duel-player-inviter-name"></div>
-                <div class="duel-player-correct-count" id="inviter-correct-count">0</div>
-            </div>
-            <div class="duel-player-score" id="duel-player-invited-score">
-                <img id="duel-player-invited-photo" src="">
-                <div class="duel-player-name" id="duel-player-invited-name"></div>
-                <div class="duel-player-correct-count" id="invited-correct-count">0</div>
-            </div>
-        </div>
-
-        <div class="score-container" id="duel-final-container">
-            <div class="winner-message" id="winner-message"></div>
-            <button class="end-game-button" id="duel-final-back-button">Oyunu Sonlandır</button>
-        </div>
-    </div>
-
-    <!-- Alert Modal -->
-    <div class="alert-overlay" id="alertOverlay">
-        <div class="alert-content">
-            <div class="alert-message" id="alertMessage"></div>
-            <button class="alert-ok-button" id="alertOkButton">Tamam</button>
-        </div>
-    </div>
-
-    <!-- Prompt Modal -->
-    <div class="prompt-overlay" id="promptOverlay">
-        <div class="prompt-content">
-            <div class="prompt-message" id="promptMessage"></div>
-            <input type="text" class="prompt-input" id="promptInput">
-            <div class="prompt-buttons">
-                <button class="prompt-cancel-button" id="promptCancelButton">İptal</button>
-                <button class="prompt-ok-button" id="promptOkButton">Tamam</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Davet Modalı -->
-    <div class="invitation-overlay" id="invitationOverlay">
-        <div class="invitation-content">
-            <div class="invitation-message" id="invitationMessage"></div>
-            <div class="invitation-buttons">
-                <button class="invitation-decline-button" id="invitationDeclineButton">Reddet</button>
-                <button class="invitation-accept-button" id="invitationAcceptButton">Kabul Et</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Arka Plan Müziği için Audio Elementi -->
-    <audio id="duelBackgroundMusic" src="https://github.com/d4rkd4/audio-assets/raw/refs/heads/main/OYUN%202%20ARKA%20PLAN%20M%C3%9CZ%C4%B0%C4%9E%C4%B0.mp3" preload="auto"></audio>
-    <!-- Kazanan Ekranı için Yeni Audio Elementi -->
-    <audio id="winnerMusic" src="https://github.com/d4rkd4/audio-assets/raw/refs/heads/main/Awards%20Fanfare%20Winner%20Nomination%20Ceremony%20Background%20Music.mp3" preload="auto"></audio>
-    <!-- Tek Kişilik Oyun Müziği için Yeni Audio Elementi -->
-    <audio id="singlePlayerQuestionMusic" src="https://github.com/d4rkd4/winnerarkaplan/raw/refs/heads/main/soru%20arka.mp3" preload="auto"></audio>
-
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
-    <script>
+</div>
+</div>
+<!-- Ranking Panel (Yan Panel - Yeni Eklendi) -->
+<div class="ranking-panel" id="rankingPanel" style="display: none;">
+<h2>Kupa Sıralaması</h2>
+<div class="ranking-table-container">
+<table class="ranking-table" id="ranking-table">
+<thead>
+<tr>
+<th>Rank</th>
+<th>Fotoğraf</th>
+<th>İsim</th>
+<th>Sınıf</th>
+<th>Kupa Skoru</th>
+</tr>
+</thead>
+<tbody id="ranking-table-body">
+<!-- Sıralama verileri buraya eklenecek -->
+</tbody>
+</table>
+</div>
+<button class="ranking-back-button" id="rankingBackButton">Geri Dön</button>
+</div>
+<!-- Tek Kişilik Oyun Ekranı -->
+<div class="game-container" id="single-player-screen">
+<h2>Tek Kişilik Oyun</h2>
+<div class="table-section">
+<h3>Konu Belirleme</h3>
+<label for="class-select">Sınıf Seç:</label>
+<select id="class-select">
+<option value="">Seçiniz</option>
+</select>
+<label for="subject-select">Ders Seç:</label>
+<select id="subject-select">
+<option value="">Seçiniz</option>
+</select>
+<label for="topic-select">Konu Seç:</label>
+<select id="topic-select">
+<option value="">Seçiniz</option>
+</select>
+</div>
+<button class="start-game-button" disabled="" id="start-game-button">Oyuna Başla</button>
+<button class="back-button">Geri Dön</button>
+</div>
+<!-- Admin Ekranı -->
+<div class="container admin-container" id="admin-screen">
+<h2>Admin Paneli</h2>
+<div class="table-section">
+<h3>Sınıf Seçimi ve PIN Doğrulama</h3>
+<label for="admin-class-select">Sınıf Seç:</label>
+<select id="admin-class-select">
+<option value="">Seçiniz</option>
+</select>
+<label for="admin-pin-input">Sınıf PIN'i Gir:</label>
+<input id="admin-pin-input" placeholder="PIN" type="password"/>
+<button class="login-button" disabled="" id="admin-login-button">PIN Doğrula</button>
+</div>
+<div class="table-section" id="admin-student-section" style="display: none;">
+<h3>Öğrenciler</h3>
+<ul class="admin-student-list" id="admin-student-list"></ul>
+</div>
+<button class="admin-back-button">Geri Dön</button>
+</div>
+<!-- Tek Kişilik Oyun Sorular Ekranı -->
+<div class="single-player-game-container" id="single-player-game-screen">
+<div class="progress-container">
+<div class="question-number" id="question-number">Soru 1/10</div>
+<div class="progress-bar">
+<div class="progress-bar-inner" id="progress-bar-inner"></div>
+</div>
+</div>
+<div class="timer-container">
+<div class="timer" id="timer">45</div>
+</div>
+<div class="question-container">
+<img alt="Soru Resmi" class="question-image" id="question-image" src="" style="display: none;"/>
+<div class="question-text" id="question-text">Soru metni burada olacak.</div>
+</div>
+<div class="options-container" id="options-container"></div>
+<div class="score-container" id="score-container">
+<span id="score"></span>
+<div class="score-message" id="score-message"></div>
+<img alt="Sonuç Resmi" class="final-image" id="score-image" style="display:none;"/>
+<!-- "Geri Dön" butonu -->
+<button class="end-game-button" id="final-back-button">Geri Dön</button>
+</div>
+</div>
+<!-- Düello Seçim Ekranı -->
+<div class="duel-selection-container" id="duel-selection-screen">
+<h2>Ortak Seçim Ekranı</h2>
+<div class="table-section">
+<h3>Konu Belirleme</h3>
+<label for="duel-class-select">Sınıf Seç:</label>
+<select id="duel-class-select">
+<option value="">Seçiniz</option>
+</select>
+<label for="duel-subject-select">Ders Seç:</label>
+<select id="duel-subject-select">
+<option value="">Seçiniz</option>
+</select>
+<label for="duel-topic-select">Konu Seç:</label>
+<select id="duel-topic-select">
+<option value="">Seçiniz</option>
+</select>
+</div>
+<div class="duel-controls">
+<button class="duel-start-button" disabled="" id="duel-start-button">Düelloya Başla</button>
+</div>
+<div class="duel-bottom-info">
+<div class="duel-player-info" id="duel-inviter-info">
+<img class="duel-player-photo" id="duel-inviter-photo" src=""/>
+<div class="duel-player-name" id="duel-inviter-name"></div>
+</div>
+<div class="duel-player-info" id="duel-invited-info">
+<img class="duel-player-photo" id="duel-invited-photo" src=""/>
+<div class="duel-player-name" id="duel-invited-name"></div>
+</div>
+</div>
+</div>
+<!-- Düello Oyun Ekranı -->
+<div class="duel-game-container" id="duel-game-screen">
+<div class="progress-container">
+<div class="question-number" id="duel-question-number">Soru 1/10</div>
+<div class="progress-bar">
+<div class="progress-bar-inner" id="duel-progress-bar-inner"></div>
+</div>
+</div>
+<div class="timer-container">
+<div class="timer" id="duel-timer">45</div>
+</div>
+<div class="question-container">
+<img alt="Soru Resmi" class="question-image" id="duel-question-image" src="" style="display: none;"/>
+<div class="question-text" id="duel-question-text">Soru metni burada olacak.</div>
+</div>
+<div class="options-container" id="duel-options-container"></div>
+<div class="players-info-row">
+<div class="duel-player-score" id="duel-player-inviter-score">
+<img id="duel-player-inviter-photo" src=""/>
+<div class="duel-player-name" id="duel-player-inviter-name"></div>
+<div class="duel-player-correct-count" id="inviter-correct-count">0</div>
+</div>
+<div class="duel-player-score" id="duel-player-invited-score">
+<img id="duel-player-invited-photo" src=""/>
+<div class="duel-player-name" id="duel-player-invited-name"></div>
+<div class="duel-player-correct-count" id="invited-correct-count">0</div>
+</div>
+</div>
+<div class="score-container" id="duel-final-container">
+<div class="winner-message" id="winner-message"></div>
+<button class="end-game-button" id="duel-final-back-button">Oyunu Sonlandır</button>
+</div>
+</div>
+<!-- Alert Modal -->
+<div class="alert-overlay" id="alertOverlay">
+<div class="alert-content">
+<div class="alert-message" id="alertMessage"></div>
+<button class="alert-ok-button" id="alertOkButton">Tamam</button>
+</div>
+</div>
+<!-- Prompt Modal -->
+<div class="prompt-overlay" id="promptOverlay">
+<div class="prompt-content">
+<div class="prompt-message" id="promptMessage"></div>
+<input class="prompt-input" id="promptInput" type="text"/>
+<div class="prompt-buttons">
+<button class="prompt-cancel-button" id="promptCancelButton">İptal</button>
+<button class="prompt-ok-button" id="promptOkButton">Tamam</button>
+</div>
+</div>
+</div>
+<!-- Davet Modalı -->
+<div class="invitation-overlay" id="invitationOverlay">
+<div class="invitation-content">
+<div class="invitation-message" id="invitationMessage"></div>
+<div class="invitation-buttons">
+<button class="invitation-decline-button" id="invitationDeclineButton">Reddet</button>
+<button class="invitation-accept-button" id="invitationAcceptButton">Kabul Et</button>
+</div>
+</div>
+</div>
+<!-- Arka Plan Müziği için Audio Elementi -->
+<audio id="duelBackgroundMusic" preload="auto" src="https://github.com/d4rkd4/audio-assets/raw/refs/heads/main/OYUN%202%20ARKA%20PLAN%20M%C3%9CZ%C4%B0%C4%9E%C4%B0.mp3"></audio>
+<!-- Kazanan Ekranı için Yeni Audio Elementi -->
+<audio id="winnerMusic" preload="auto" src="https://github.com/d4rkd4/audio-assets/raw/refs/heads/main/Awards%20Fanfare%20Winner%20Nomination%20Ceremony%20Background%20Music.mp3"></audio>
+<!-- Tek Kişilik Oyun Müziği için Yeni Audio Elementi -->
+<audio id="singlePlayerQuestionMusic" preload="auto" src="https://github.com/d4rkd4/winnerarkaplan/raw/refs/heads/main/soru%20arka.mp3"></audio>
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+<script>
         // JavaScript Kodları
 
         // Audio Elementlerini Seçme
@@ -3343,8 +3483,7 @@
             }
         }
     </script>
-
-    <script>
+<script>
         // Ensure the script runs after the DOM is fully loaded
         document.addEventListener('DOMContentLoaded', () => {
             const kupaSiralamaButton = document.getElementById('kupa-siralama-button');
@@ -3369,7 +3508,5 @@
             }
         });
     </script>
-    </body>
-    
+</body>
 </html>
-
