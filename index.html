@@ -7,7 +7,64 @@
     <!-- Comfortaa Font -->
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&display=swap" rel="stylesheet">
     
+    
     <style>
+    @media (max-width: 768px) {
+        /* Ensure text fits dynamically */
+        body {
+            font-size: 14px;
+            overflow-x: hidden;
+        }
+        .ranking-panel {
+            width: 100%;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            text-align: center;
+        }
+        .ranking-table th, .ranking-table td {
+            font-size: 0.8em;
+            padding: 6px;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            text-align: center;
+        }
+        .ranking-back-button {
+            font-size: 0.9em;
+            padding: 10px 15px;
+        }
+        .score-message, .winner-message, .final-message {
+            font-size: 1.5em;
+            text-align: center;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            white-space: normal; /* Allow text wrapping */
+        }
+        .final-image {
+            width: 80px;
+            height: auto;
+        }
+        .question-container, .options-container {
+            padding: 10px;
+            font-size: 0.9em;
+            text-align: center;
+        }
+        .option-button {
+            font-size: 0.8em;
+            padding: 8px 12px;
+            text-overflow: ellipsis;
+            white-space: nowrap; /* Prevent overflow */
+            overflow: hidden;
+        }
+        /* Dynamic font size adjustment for long names */
+        .dynamic-text {
+            font-size: calc(1.5em - 0.1vw); /* Shrink text size based on viewport width */
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            white-space: normal; /* Allow wrapping */
+            text-align: center;
+        }
+    }
+    
     @media (max-width: 768px) {
         /* Ensure text never overflows */
         body {
