@@ -2208,12 +2208,32 @@
             }
         }
 
-        // "Geri Dön" butonu için event listener
-        finalBackButton.addEventListener('click', () => {
-            singlePlayerGameScreen.style.display = 'none';
-            mainScreen.style.display = 'flex';
-            resetGameScreens();
-        });
+// "Geri Dön" butonu için event listener
+finalBackButton.addEventListener('click', () => {
+    // Müzikleri durdur
+    stopAllMusic();
+
+    // Ekranları sıfırla ve ana ekrana dön
+    singlePlayerGameScreen.style.display = 'none';
+    mainScreen.style.display = 'flex';
+    resetGameScreens();
+});
+
+// Tüm müzikleri durdurma fonksiyonu
+function stopAllMusic() {
+    if (!duelMusic.paused) {
+        duelMusic.pause();
+        duelMusic.currentTime = 0;
+    }
+    if (!winnerMusic.paused) {
+        winnerMusic.pause();
+        winnerMusic.currentTime = 0;
+    }
+    if (!singlePlayerQuestionMusic.paused) {
+        singlePlayerQuestionMusic.pause();
+        singlePlayerQuestionMusic.currentTime = 0;
+    }
+}
 
         // Kupa Sıralaması Butonuna Event Listener (Yan Panel Açma)
         kupaSiralamaButton.addEventListener('click', () => {
