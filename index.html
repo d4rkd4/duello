@@ -8,7 +8,427 @@
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&display=swap" rel="stylesheet">
     
     
+    
+    
+    
+    
+    
     <style>
+    html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden; /* Prevent scrolling */
+    }
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f5f5f5;
+    }
+    #app-container {
+        width: 100%;
+        max-width: 768px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        overflow: hidden;
+        position: relative;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+    .question-container {
+        width: 100%;
+        height: 35%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background-color: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+        font-size: clamp(0.5em, 1.2vw, 0.8em); /* Ensure smaller text size */
+        position: relative;
+        box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+        word-break: break-word; /* Force words to wrap */
+        overflow-wrap: break-word;
+        white-space: normal; /* Allow multiple lines */
+    }
+    .question-container img {
+        max-width: 90%; /* Ensure the image fits slightly within the container */
+        max-height: 90%;
+        object-fit: contain; /* Ensure image scales while maintaining aspect ratio */
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .options-container {
+        width: 100%;
+        height: 40%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
+        flex-wrap: wrap; /* Ensure options fit within the container */
+        overflow: hidden;
+        gap: 10px;
+        box-sizing: border-box;
+    }
+    .option-button {
+        flex: 1 1 calc(30% - 15px); /* Ensure options fit within the row */
+        margin: 5px;
+        padding: 8px;
+        text-align: center;
+        font-size: clamp(0.4em, 0.7vw, 0.6em); /* Smaller font size for better scaling */
+        overflow-wrap: break-word;
+        word-break: break-word; /* Force long text to wrap */
+        white-space: normal; /* Allow multiple lines */
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+    }
+    .option-button:hover {
+        background-color: #0056b3;
+    }
+    .player-card {
+        width: 25%;
+        height: 15%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 5px;
+        font-size: clamp(0.8em, 1.2vw, 1em); /* Dynamic scaling for player cards */
+        text-align: center;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+    .score-message {
+        font-size: clamp(0.7em, 1.8vw, 1em); /* Further reduce text size */
+        text-align: center;
+        overflow-wrap: break-word;
+        white-space: normal;
+    }
+    @media (max-width: 768px) {
+        .question-container {
+            height: 30%;
+        }
+        .options-container {
+            height: 50%;
+        }
+        .player-card {
+            height: 12%;
+        }
+    }
+    
+    html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden; /* Prevent scrolling */
+    }
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    #app-container {
+        width: 100%;
+        max-width: 768px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        position: relative;
+    }
+    .question-container {
+        width: 90%;
+        height: 25%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        overflow: hidden;
+        font-size: clamp(1em, 2.5vw, 1.5em); /* Dynamically resize text */
+    }
+    .question-container img {
+        max-width: 100%; /* Ensure image fits within the width */
+        max-height: 100%; /* Ensure image fits within the height */
+        object-fit: contain; /* Maintain aspect ratio */
+    }
+    .options-container {
+        width: 90%;
+        height: 25%;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        flex-wrap: wrap; /* Ensure options fit within the container */
+        overflow: hidden;
+    }
+    .option-button {
+        flex: 1 1 calc(30% - 10px); /* Dynamic scaling for buttons */
+        margin: 5px;
+        padding: 10px;
+        text-align: center;
+        font-size: clamp(0.8em, 1.5vw, 1em); /* Scale text dynamically */
+        overflow-wrap: break-word;
+        white-space: normal;
+    }
+    .player-card {
+        width: 25%;
+        height: 20%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 5px;
+        font-size: clamp(0.8em, 1.2vw, 1em); /* Dynamic scaling for player cards */
+        text-align: center;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+    .score-message {
+        font-size: clamp(0.7em, 1.8vw, 1em); /* Further reduce text size */
+        text-align: center;
+        overflow-wrap: break-word;
+        white-space: normal;
+    }
+    @media (max-width: 768px) {
+        .question-container {
+            height: 20%;
+        }
+        .options-container {
+            height: 35%;
+        }
+        .player-card {
+            height: 15%;
+        }
+    }
+    
+    html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden; /* Prevent scrolling */
+    }
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    #app-container {
+        width: 100%;
+        max-width: 768px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        position: relative;
+    }
+    .question-container {
+        width: 90%;
+        height: 25%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        overflow: hidden;
+        font-size: clamp(1em, 2.5vw, 1.5em); /* Dynamically resize text */
+    }
+    .options-container {
+        width: 90%;
+        height: 25%;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        flex-wrap: wrap; /* Ensure options fit within the container */
+        overflow: hidden;
+    }
+    .option-button {
+        flex: 1 1 calc(30% - 10px); /* Dynamic scaling for buttons */
+        margin: 5px;
+        padding: 10px;
+        text-align: center;
+        font-size: clamp(0.8em, 1.5vw, 1em); /* Scale text dynamically */
+        overflow-wrap: break-word;
+        white-space: normal;
+    }
+    .player-card {
+        width: 25%;
+        height: 20%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 5px;
+        font-size: clamp(0.8em, 1.2vw, 1em); /* Dynamic scaling for player cards */
+        text-align: center;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+    .score-message {
+        font-size: clamp(0.7em, 1.8vw, 1em); /* Further reduce text size */
+        text-align: center;
+        overflow-wrap: break-word;
+        white-space: normal;
+    }
+    @media (max-width: 768px) {
+        .question-container {
+            height: 20%;
+        }
+        .options-container {
+            height: 35%;
+        }
+        .player-card {
+            height: 15%;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        /* Ensure text fully adjusts within containers */
+        body {
+            font-size: 14px;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+        }
+        .ranking-panel {
+            width: 100%;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            text-align: center;
+        }
+        .ranking-table th, .ranking-table td {
+            font-size: 0.8em;
+            padding: 6px;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            text-align: center;
+        }
+        .ranking-back-button {
+            font-size: 0.9em;
+            padding: 10px 15px;
+        }
+        .score-message, .winner-message, .final-message {
+            font-size: clamp(1em, 2.5vw, 1.5em); /* Dynamically resize text */
+            text-align: center;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            white-space: normal; /* Allow wrapping */
+        }
+        .final-image {
+            width: 80px;
+            height: auto;
+        }
+        .question-container, .options-container {
+            padding: 10px;
+            font-size: 0.9em;
+            text-align: center;
+        }
+        .option-button {
+            font-size: 0.8em;
+            padding: 8px 12px;
+            text-overflow: ellipsis;
+            white-space: normal; /* Allow wrapping for buttons */
+            overflow-wrap: break-word;
+        }
+        /* Fix for player names */
+        .player-name {
+            display: block;
+            font-size: clamp(0.8em, 2vw, 1em); /* Dynamically adjust font size */
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            white-space: normal; /* Allow proper wrapping */
+            text-align: center;
+            margin: 0 auto;
+            line-height: 1.2; /* Improve readability */
+        }
+        .player-card {
+            height: auto; /* Adjust card height dynamically based on content */
+            min-height: 120px; /* Ensure consistent height */
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        /* Ensure long names fit perfectly inside containers */
+        body {
+            font-size: 14px;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+        }
+        .ranking-panel {
+            width: 100%;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            text-align: center;
+        }
+        .ranking-table th, .ranking-table td {
+            font-size: 0.8em;
+            padding: 6px;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            text-align: center;
+        }
+        .ranking-back-button {
+            font-size: 0.9em;
+            padding: 10px 15px;
+        }
+        .score-message, .winner-message, .final-message {
+            font-size: 1.5em;
+            text-align: center;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            white-space: normal; /* Allow wrapping */
+        }
+        .final-image {
+            width: 80px;
+            height: auto;
+        }
+        .question-container, .options-container {
+            padding: 10px;
+            font-size: 0.9em;
+            text-align: center;
+        }
+        .option-button {
+            font-size: 0.8em;
+            padding: 8px 12px;
+            text-overflow: ellipsis;
+            white-space: normal; /* Allow wrapping for buttons */
+            overflow-wrap: break-word;
+        }
+        /* Specific fix for player names */
+        .player-name {
+            display: block;
+            font-size: 1em; /* Reduce font size slightly */
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            white-space: normal; /* Ensure proper wrapping */
+            text-align: center;
+            margin: 0 auto;
+            line-height: 1.2; /* Adjust line height for better readability */
+        }
+        .player-card {
+            height: auto; /* Adjust card height dynamically based on content */
+            min-height: 100px; /* Ensure minimum height for consistency */
+            padding: 10px;
+        }
+    }
+    
     @media (max-width: 768px) {
         /* Ensure text fits dynamically */
         body {
@@ -1361,7 +1781,7 @@
         }
     </style>
 </head>
-<body>
+<body><div id="app-container">
     <!-- Oyundakiler Modal -->
     <div class="players-overlay" id="playersOverlay">
         <div class="players-content">
@@ -3472,7 +3892,7 @@
             }
         });
     </script>
-    </body>
+    </div></body>
     
 </html>
 
