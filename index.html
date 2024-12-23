@@ -870,40 +870,40 @@
             gap: 20px;
         }
 
-        .duel-player-info {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            max-width:160px; 
-            overflow:hidden;
-        }
+.duel-player-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width:160px; 
+    overflow:hidden;
+}
 
-        .duel-player-photo {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #ff8a00;
-            margin-bottom: 10px;
-            transition: transform 0.3s;
-        }
+.duel-player-photo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #ff8a00;
+    margin-bottom: 10px;
+    transition: transform 0.3s;
+}
 
-        .duel-player-photo:hover {
-            transform: rotate(360deg);
-        }
+.duel-player-photo:hover {
+    transform: rotate(360deg);
+}
 
-        .duel-player-name {
-            font-size: 1.2em;
-            font-weight: bold;
-            color: #333;
-            max-width:100%;
-            overflow:hidden;
-            text-overflow:ellipsis;
-            white-space:nowrap;
-            text-align:center;
-            display:block;
-            text-shadow: 1px 1px #ff8a00;
-        }
+.duel-player-name {
+    font-size: 1em; /* Yazı boyutunu küçülttük */
+    font-weight: bold;
+    color: #333;
+    max-width: 150px; /* Çerçeve genişliği ile uyumlu hale getirildi */
+    word-wrap: break-word; /* Uzun kelimeleri böler */
+    overflow: hidden;
+    white-space: normal; /* Tek satır yerine birden fazla satırda gösterebilir */
+    text-align: center;
+    text-shadow: 1px 1px #ff8a00;
+}
+
 
         .duel-controls {
             display:flex;
