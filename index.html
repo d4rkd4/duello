@@ -1561,46 +1561,31 @@
             }
         });
 
-window.addEventListener('beforeunload', () => {
-    if (selectedStudent && selectedStudent.studentId) {
-        // Oyuncunun inDuel durumunu false yap
-        database.ref(`classes/${selectedStudent.classId}/students/${selectedStudent.studentId}/inDuel`)
-            .set(false)
-            .then(() => console.log("inDuel set to false"))
-            .catch(err => console.error("Failed to update inDuel status:", err));
+        window.addEventListener('beforeunload', () => {
+            if (selectedStudent && selectedStudent.studentId) {
+                database.ref(`classes/${selectedStudent.classId}/students/${selectedStudent.studentId}/inDuel`).set(false)
+                .then(() => console.log("inDuel set to false"))
+                .catch(err => console.error("Failed to update inDuel status:", err));
 
-        // Eğer bir düello referansı varsa, rakibe uyarı gönder
-        if (currentDuelRef) {
-            currentDuelRef.once('value').then(async (snapshot) => {
-                if (snapshot.exists()) {
-                    const data = snapshot.val();
-                    const inviterRef = database.ref(`classes/${data.inviter.classId}/students/${data.inviter.studentId}/inDuel`);
-                    const invitedRef = database.ref(`classes/${data.invited.classId}/students/${data.invited.studentId}/inDuel`);
-
-                    try {
-                        // Rakibin inDuel durumunu false yap
-                        if (selectedStudent.studentId === data.inviter.studentId) {
-                            await invitedRef.set(false);
-                        } else if (selectedStudent.studentId === data.invited.studentId) {
-                            await inviterRef.set(false);
+                // Eğer bir düello referansı varsa, düelloyu kaldır ve diğer oyuncunun inDuel durumunu false yap
+                if (currentDuelRef) {
+                    currentDuelRef.once('value').then(async (snapshot) => {
+                        if (snapshot.exists()) {
+                            const data = snapshot.val();
+                            const inviterRef = database.ref(`classes/${data.inviter.classId}/students/${data.inviter.studentId}/inDuel`);
+                            const invitedRef = database.ref(`classes/${data.invited.classId}/students/${data.invited.studentId}/inDuel`);
+                            try {
+                                await inviterRef.set(false);
+                                await invitedRef.set(false);
+                                await currentDuelRef.remove();
+                            } catch (error) {
+                                console.error("Düello referansı kaldırılırken hata:", error);
+                            }
                         }
-
-                        // Rakibe uyarı gönder
-                        await currentDuelRef.child('opponentLeft').set(true);
-
-                        // Düello referansını kaldır
-                        await currentDuelRef.remove();
-                        console.log("Düello referansı kaldırıldı.");
-                    } catch (error) {
-                        console.error("Düello referansı kaldırılırken hata:", error);
-                    }
+                    });
                 }
-            });
-        }
-    }
-});
-
-
+            }
+        });
 
         // Lütfen kendi firebaseConfig değerlerinizi girin
         const firebaseConfig = {
@@ -1641,26 +1626,17 @@ window.addEventListener('beforeunload', () => {
         const studentPhoto = document.getElementById('student-photo');
         const studentName = document.getElementById('student-name');
 
-async function addLoggedInPlayer(student) {
-    const newRef = database.ref('loggedinPlayers').push();
-    await newRef.set({
-        name: student.studentName,
-        photo: (studentPhoto.src && studentPhoto.src !== "") ? studentPhoto.src : "",
-        classId: student.classId,
-        studentId: student.studentId
-    });
-
-    // Oyuncunun bağlantısını keserse inDuel durumunu false yap
-    database.ref(`classes/${student.classId}/students/${student.studentId}/inDuel`)
-        .onDisconnect()
-        .set(false)
-        .then(() => console.log("onDisconnect inDuel durumu ayarlandı."))
-        .catch(err => console.error("onDisconnect hata:", err));
-
-    newRef.onDisconnect().remove(); // Oyuncu loggedinPlayers'dan da silinecek
-    loggedinPlayerRef = newRef;
-}
-
+        async function addLoggedInPlayer(student) {
+            const newRef = database.ref('loggedinPlayers').push();
+            await newRef.set({
+                name: student.studentName,
+                photo: (studentPhoto.src && studentPhoto.src !== "") ? studentPhoto.src : "",
+                classId: student.classId,
+                studentId: student.studentId
+            });
+            newRef.onDisconnect().remove();
+            loggedinPlayerRef = newRef;
+        }
 
         async function showLoggedInPlayers() {
             playersList.innerHTML = '';
@@ -2684,14 +2660,15 @@ async function addLoggedInPlayer(student) {
             });
 
             // Düello referansı silindiğinde (örneğin, bir oyuncu bağlantısını kestiğinde)
-database.ref('duels').on('child_removed', snapshot => {
-    if (currentDuelRef && snapshot.key === currentDuelRef.key && !duelEnded) { 
-        showAlert('Rakibin bağlantısı kesildi. Tekrar giriş yapınız.')
-            .then(() => {
-                window.location.reload();
+            database.ref('duels').on('child_removed', snapshot => {
+                if (currentDuelRef && snapshot.key === currentDuelRef.key && !duelEnded) { // duelEnded kontrolü eklendi
+                    showAlert('Rakibin bağlantısı kesildi. Tekrar giriş yapınız.')
+                        .then(() => {
+                            window.location.reload();
+                        });
+                }
             });
-    }
-});
+        }
 
         function showInvitationModal(data) {
             invitationMessage.textContent = `${data.invitedByName} (${classNameMap[data.invitedByClassId] ? classNameMap[data.invitedByClassId] : data.invitedByClassId}) seni düelloya davet ediyor.`;
