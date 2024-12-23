@@ -1561,31 +1561,45 @@
             }
         });
 
-        window.addEventListener('beforeunload', () => {
-            if (selectedStudent && selectedStudent.studentId) {
-                database.ref(`classes/${selectedStudent.classId}/students/${selectedStudent.studentId}/inDuel`).set(false)
-                .then(() => console.log("inDuel set to false"))
-                .catch(err => console.error("Failed to update inDuel status:", err));
+window.addEventListener('beforeunload', () => {
+    if (selectedStudent && selectedStudent.studentId) {
+        // Oyuncunun inDuel durumunu false yap
+        database.ref(`classes/${selectedStudent.classId}/students/${selectedStudent.studentId}/inDuel`)
+            .set(false)
+            .then(() => console.log("inDuel set to false"))
+            .catch(err => console.error("Failed to update inDuel status:", err));
 
-                // Eğer bir düello referansı varsa, düelloyu kaldır ve diğer oyuncunun inDuel durumunu false yap
-                if (currentDuelRef) {
-                    currentDuelRef.once('value').then(async (snapshot) => {
-                        if (snapshot.exists()) {
-                            const data = snapshot.val();
-                            const inviterRef = database.ref(`classes/${data.inviter.classId}/students/${data.inviter.studentId}/inDuel`);
-                            const invitedRef = database.ref(`classes/${data.invited.classId}/students/${data.invited.studentId}/inDuel`);
-                            try {
-                                await inviterRef.set(false);
-                                await invitedRef.set(false);
-                                await currentDuelRef.remove();
-                            } catch (error) {
-                                console.error("Düello referansı kaldırılırken hata:", error);
-                            }
+        // Eğer bir düello referansı varsa, karşı tarafın inDuel durumunu false yap ve uyarı gönder
+        if (currentDuelRef) {
+            currentDuelRef.once('value').then(async (snapshot) => {
+                if (snapshot.exists()) {
+                    const data = snapshot.val();
+                    const inviterRef = database.ref(`classes/${data.inviter.classId}/students/${data.inviter.studentId}/inDuel`);
+                    const invitedRef = database.ref(`classes/${data.invited.classId}/students/${data.invited.studentId}/inDuel`);
+
+                    try {
+                        // Oyuncunun çıkış durumuna göre rakibin inDuel durumunu güncelle
+                        if (selectedStudent.studentId === data.inviter.studentId) {
+                            await invitedRef.set(false); // Rakibin inDuel durumunu false yap
+                        } else if (selectedStudent.studentId === data.invited.studentId) {
+                            await inviterRef.set(false); // Rakibin inDuel durumunu false yap
                         }
-                    });
+
+                        // Rakibe uyarı göndermek için "opponentLeft" alanını ayarla
+                        await currentDuelRef.child('opponentLeft').set(true);
+
+                        // Düello referansını kaldır
+                        await currentDuelRef.remove();
+                        console.log("Düello referansı kaldırıldı ve karşı tarafa uyarı gönderildi.");
+                    } catch (error) {
+                        console.error("Düello referansı kaldırılırken hata:", error);
+                    }
                 }
-            }
-        });
+            });
+        }
+    }
+});
+
 
         // Lütfen kendi firebaseConfig değerlerinizi girin
         const firebaseConfig = {
