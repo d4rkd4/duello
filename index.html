@@ -427,17 +427,18 @@
             100% { transform: translateX(0); }
         }
 
-        .single-player-game-container, .duel-game-container {
-            display: none;
-            flex-direction: column;
-            gap: 8px;
-            width: 100%;
-            max-width: none;
-            justify-content: center;
-            align-items: center;
-            padding: 15px;
-            animation: fadeIn 0.5s forwards;
-        }
+.single-player-game-container, .duel-game-container {
+    display: none; /* Bu konteyner başlangıçta görünmez */
+    flex-direction: column; /* İçerikleri dikey olarak hizalar */
+    gap: 25px; /* İçerikler arasındaki boşluk 25 piksel */
+    width: 100%; /* Konteyner genişliği ekranın tamamını kaplar */
+    max-width: none; /* Genişlik sınırı yok */
+    justify-content: center; /* İçerikleri dikeyde ortalar */
+    align-items: center; /* İçerikleri yatayda ortalar */
+    padding: 30px; /* Kenar boşlukları (çerçevenin içindeki içeriklerin etrafındaki boşluk) */
+    animation: fadeIn 0.5s forwards; /* Görünür hale geldiğinde fadeIn animasyonu oynar */
+}
+
 
         .question-number {
             margin-bottom: 15px;
@@ -942,7 +943,7 @@
         .duel-game-container {
             display: none;
             flex-direction: column;
-            gap: 25px;
+            gap: 10px;
             width: 100%;
             max-width: none;
             justify-content: center;
