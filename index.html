@@ -16,43 +16,22 @@
         }
 
         body {
-            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
-            animation: backgroundPulse 10s infinite alternate;
-        }
-
-        @keyframes backgroundPulse {
-            from {
-                background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-            }
-            to {
-                background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
-            }
         }
 
         .container, .game-container, .student-selection-container, .admin-container, .single-player-game-container, .duel-selection-container, .duel-game-container {
             background: white;
-            padding: 30px 40px;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            padding: 20px 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
             width: 100%;
-            max-width: 900px;
+            max-width: 800px;
             text-align: left;
-            transform: scale(0.95);
-            transition: transform 0.3s ease, opacity 0.3s ease;
-            opacity: 0;
-            animation: fadeInUp 0.5s forwards;
-        }
-
-        @keyframes fadeInUp {
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
         }
 
         #main-screen {
@@ -60,14 +39,8 @@
             flex-direction: row;
             align-items: center;
             justify-content: space-between;
-            gap: 40px;
+            gap: 30px;
             position: relative;
-            animation: slideIn 0.5s forwards;
-        }
-
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateX(100px); }
-            to { opacity: 1; transform: translateX(0); }
         }
 
         .student-info {
@@ -75,68 +48,41 @@
             flex-direction: column;
             align-items: center;
             width: 40%;
-            animation: bounceIn 1s;
-        }
-
-        @keyframes bounceIn {
-            0% { transform: scale(0.3); opacity: 0; }
-            50% { transform: scale(1.05); opacity: 1; }
-            70% { transform: scale(0.9); }
-            100% { transform: scale(1); }
         }
 
         .student-photo {
-            width: 160px;
-            height: 160px;
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
             object-fit: cover;
-            border: 4px solid #ff8a00;
-            margin-bottom: 20px;
-            transition: transform 0.3s;
-        }
-
-        .student-photo:hover {
-            transform: rotate(360deg);
+            border: 3px solid #555;
+            margin-bottom: 15px;
         }
 
         .student-name {
-            font-size: 2em;
+            font-size: 1.5em;
             font-weight: bold;
             color: #333;
             text-align: center;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px #ff8a00;
         }
 
         .student-cup {
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-top: 15px;
-            animation: popIn 0.5s;
-        }
-
-        @keyframes popIn {
-            from { transform: scale(0.5); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
+            margin-top: 10px;
         }
 
         .game-cup-image {
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             margin-bottom: 10px;
-            animation: rotateCup 3s linear infinite;
-        }
-
-        @keyframes rotateCup {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
         }
 
         .game-cup-score {
-            font-size: 1.5em;
+            font-size: 1.2em;
             font-weight: bold;
-            color: #ff8a00;
+            color: #333;
             animation: fadeIn 1s ease;
         }
 
@@ -148,76 +94,49 @@
         .buttons {
             display: flex;
             flex-direction: column;
-            gap: 20px;
-            width: 55%;
+            gap: 15px;
+            width: 60%;
             align-items: flex-start;
-            animation: slideButtons 0.7s ease forwards;
-        }
-
-        @keyframes slideButtons {
-            from { opacity: 0; transform: translateY(50px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         .buttons button {
             width: 100%;
-            padding: 18px;
+            padding: 15px;
             border: none;
-            border-radius: 12px;
-            font-size: 1.3em;
+            border-radius: 8px;
+            font-size: 1.1em;
             color: white;
             cursor: pointer;
-            transition: transform 0.2s, opacity 0.2s, box-shadow 0.3s;
+            transition: transform 0.2s, opacity 0.2s;
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .buttons button::before {
-            content: '';
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            background: rgba(255, 255, 255, 0.2);
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotate(45deg);
-            transition: all 0.5s;
-        }
-
-        .buttons button:hover::before {
-            width: 0%;
-            height: 0%;
-            opacity: 0;
         }
 
         .buttons button:hover {
             transform: scale(1.05);
             opacity: 0.9;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
         }
 
         .single-player {
-            background-color: #ff6f61;
+            background-color: #A855F7;
         }
 
         .oyundakiler-button {
-            background-color: #6b5b95;
-            margin-top: 20px;
+            background-color: #10B981;
+            margin-top: 15px;
         }
 
         .oyundakiler-button:hover {
-            transform: scale(1.07);
+            transform: scale(1.05);
             opacity: 0.9;
         }
 
         .kupa-siralama-button {
-            background-color: #f7cac9;
+            background-color: #FFD700; /* Altın rengi */
             color: #333;
-            background-image: linear-gradient(135deg, #f7cac9, #f7786b);
-            box-shadow: 0 0 15px rgba(247, 202, 201, 0.7);
+            background-image: linear-gradient(45deg, #FFD700, #FFA500);
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
             position: relative;
             overflow: hidden;
         }
@@ -229,7 +148,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: rgba(247, 202, 201, 0.2);
+            background: rgba(255, 215, 0, 0.2);
             transform: rotate(45deg);
             animation: shine 3s infinite;
         }
@@ -244,9 +163,9 @@
         }
 
         .admin-button {
-            background-color: #88b04b;
-            width: 60px;
-            height: 60px;
+            background-color: #FF5722;
+            width: 50px;
+            height: 50px;
             border: none;
             border-radius: 50%;
             cursor: pointer;
@@ -254,84 +173,71 @@
             align-items: center;
             justify-content: center;
             transition: background-color 0.2s, transform 0.2s;
-            margin: 25px auto 0;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            margin: 20px auto 0;
         }
 
         .admin-button img {
-            width: 28px;
-            height: 28px;
+            width: 24px;
+            height: 24px;
         }
 
         .admin-button:hover {
-            background-color: #6aa844;
+            background-color: #E64A19;
             transform: scale(1.1);
         }
 
         .game-container, .student-selection-container, .admin-container, .single-player-game-container, .duel-selection-container, .duel-game-container {
             display: none;
             flex-direction: column;
-            gap: 25px;
-            animation: fadeIn 0.5s forwards;
+            gap: 20px;
         }
 
         .table-section {
-            background-color: #fff3e0;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             text-align: left;
         }
 
         .table-section h3 {
-            margin-bottom: 15px;
-            color: #ff8a00;
-            font-size: 1.5em;
-            border-bottom: 2px solid #ff8a00;
-            padding-bottom: 5px;
+            margin-bottom: 10px;
+            color: #555;
         }
 
         .table-section label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
             font-weight: bold;
             color: #333;
         }
 
         .table-section select, .table-section input {
             width: 100%;
-            padding: 14px 20px;
-            margin-bottom: 20px;
-            border: 2px solid #ff8a00;
-            border-radius: 8px;
-            font-size: 1.2em;
+            padding: 12px 15px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1.1em;
             color: #333;
             background-color: #fff;
-            transition: border-color 0.3s;
-        }
-
-        .table-section select:focus, .table-section input:focus {
-            border-color: #f7786b;
-            outline: none;
         }
 
         .back-button, .start-game-button, .login-button, .admin-back-button, .duel-start-button, .ranking-back-button, .close-ranking-button {
-            padding: 14px 30px;
+            padding: 12px 25px;
             border: none;
-            border-radius: 10px;
+            border-radius: 8px;
             cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s;
-            font-size: 1.1em;
-            margin-top: 25px;
-            font-weight: bold;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: background-color 0.2s, transform 0.2s;
+            font-size: 1em;
+            margin-top: 20px;
         }
 
         .back-button, .admin-back-button, .ranking-back-button, .close-ranking-button {
             background-color: #555;
             color: white;
             width: 100%;
-            max-width: 220px;
+            max-width: 200px;
         }
 
         .back-button:hover, .admin-back-button:hover, .ranking-back-button:hover, .close-ranking-button:hover {
@@ -340,15 +246,16 @@
         }
 
         .start-game-button, .duel-start-button {
-            background-color: #28a745;
+            background-color: #4CAF50;
             color: white;
-            opacity: 0.7;
+            opacity: 0.5;
             cursor: not-allowed;
             width: 100%;
-            max-width: 220px;
+            max-width: 200px;
         }
 
         .start-game-button.active, .duel-start-button.active {
+            background-color: #28a745;
             opacity: 1;
             cursor: pointer;
         }
@@ -360,11 +267,10 @@
         .login-button {
             background-color: #007BFF;
             color: white;
-            opacity: 0.7;
+            opacity: 0.5;
             cursor: not-allowed;
             width: 100%;
-            max-width: 220px;
-            transition: opacity 0.3s;
+            max-width: 200px;
         }
 
         .login-button.active {
@@ -385,249 +291,191 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px;
-            margin-bottom: 12px;
-            background-color: #e0f7fa;
-            border-radius: 8px;
-            transition: background-color 0.3s;
-        }
-
-        .admin-student-list li:hover {
-            background-color: #b2ebf2;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #e9ecef;
+            border-radius: 5px;
         }
 
         .admin-student-list li button {
-            padding: 10px 16px;
+            padding: 8px 12px;
             background-color: #17a2b8;
             border: none;
-            border-radius: 6px;
+            border-radius: 5px;
             color: white;
             cursor: pointer;
-            transition: background-color 0.3s;
-            font-size: 1em;
+            transition: background-color 0.2s;
         }
 
         .admin-student-list li button:hover {
             background-color: #138496;
         }
 
-        .error {
-            color: red;
-            margin-top: 15px;
-            text-align: center;
-            font-size: 1.1em;
-            animation: shake 0.5s;
+        @media (max-width: 600px) {
+            #main-screen {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .student-info {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+
+            .buttons {
+                width: 100%;
+            }
+
+            .student-photo {
+                width: 100px;
+                height: 100px;
+            }
+
+            .student-name {
+                font-size: 1.2em;
+            }
+
+            .buttons button, .login-button, .admin-button, .kupa-siralama-button {
+                padding: 12px;
+                font-size: 0.9em;
+            }
+
+            .game-container, .student-selection-container, .admin-container, .single-player-game-container, .duel-selection-container, .duel-game-container {
+                padding: 15px 20px;
+            }
+
+            .table-section select, .table-section input {
+                padding: 8px;
+                font-size: 0.9em;
+                height: 45px; 
+            }
+
+            .back-button, .start-game-button, .login-button, .admin-back-button, .duel-start-button, .ranking-back-button, .close-ranking-button {
+                padding: 10px 20px;
+                font-size: 0.9em;
+            }
+
+            .timer {
+                font-size: 1.2em;
+            }
+
+            .question-text {
+                font-size: 1.2em;
+            }
+
+            .option-button {
+                font-size: 0.9em;
+                padding: 10px 20px;
+            }
+
+            /* Ranking Panel Mobil Uyumu */
+            .ranking-panel {
+                width: 80%;
+                max-width: 400px;
+            }
         }
 
-        @keyframes shake {
-            0% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            50% { transform: translateX(5px); }
-            75% { transform: translateX(-5px); }
-            100% { transform: translateX(0); }
+        .error {
+            color: red;
+            margin-top: 10px;
+            text-align: center;
         }
 
         .single-player-game-container, .duel-game-container {
             display: none;
             flex-direction: column;
-            gap: 25px;
+            gap: 20px;
             width: 100%;
             max-width: none;
             justify-content: center;
             align-items: center;
-            padding: 30px;
-            animation: fadeIn 0.5s forwards;
+            padding: 20px;
         }
 
-        .question-number {
-            margin-bottom: 15px;
-            font-size: 1.5em;
-            color: #555;
-            font-weight: bold;
-        }
-
-        .progress-container {
-            width: 100%;
-            max-width: 900px;
-            margin-bottom: 25px;
-        }
-
-        .progress-bar {
-            width: 100%;
-            background-color: #e9ecef;
-            border-radius: 15px;
-            overflow: hidden;
-            height: 25px;
-        }
-
-        .progress-bar-inner {
-            height: 100%;
-            width: 0%;
-            background-color: #28a745;
-            transition: width 0.4s ease;
-        }
-
-        .timer-container {
-            margin-bottom: 25px;
-        }
-
-        .timer {
-            font-size: 1.8em;
-            color: #ff0000;
-            font-weight: bold;
-            animation: pulseTimer 1.5s infinite;
-        }
-
-        @keyframes pulseTimer {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
-        }
-
+        /* Sabit Çerçeve ve Dinamik İçerik Ölçeklendirme */
         .question-container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            width: 100%;
-            max-width: 900px;
+            justify-content: flex-start;
+            width: 600px; /* Sabit genişlik */
+            height: 400px; /* Sabit yükseklik */
             text-align: center;
-            min-height: 180px;
-            padding: 25px;
-            border: 3px solid #ff8a00;
-            border-radius: 15px; 
-            background-color: #fffbea; 
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); 
+            padding: 20px;
+            border: 2px solid #333;
+            border-radius: 10px; 
+            background-color: #f9f9f9; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
             overflow: hidden; 
-            position: relative;
-            animation: zoomIn 0.6s;
-        }
-
-        @keyframes zoomIn {
-            from { transform: scale(0.9); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
         }
 
         .question-image {
-            max-width: 100%;
-            height: auto;
-            border-radius: 12px;
-            margin-bottom: 20px;
+            width: 155%;
+            height: 155%; /* Çerçevenin yarısını kaplayacak şekilde ayarlandı */
+            max-height: 300px; /* Maksimum yükseklik */
             object-fit: contain; 
-            animation: fadeInImage 1s;
-        }
-
-        @keyframes fadeInImage {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            border-radius: 10px;
+            margin-bottom: 10px;
         }
 
         .question-text {
-            font-size: 1.8em;
-            margin-bottom: 25px;
+            font-size: clamp(1em, 2.5vw, 1.5em);
+            margin-bottom: 20px;
             color: #333;
-            min-height: 80px; 
             word-wrap: break-word; 
             overflow-wrap: break-word; 
             hyphens: auto; 
-            max-height: 250px; 
+            flex: 1; /* Metnin çerçeve içinde esnek olmasını sağlar */
             overflow-y: auto; 
-            animation: slideUp 0.5s;
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+            padding: 0 10px; /* Metnin kenarlardan uzak durmasını sağlar */
         }
 
         .options-container {
             display: flex;
-            gap: 20px;
+            gap: 15px;
             flex-direction: row;
             justify-content: center;
             width: 100%;
-            max-width: 900px;
+            max-width: 800px;
             flex-wrap: wrap; 
-            animation: fadeInOptions 0.5s;
-        }
-
-        @keyframes fadeInOptions {
-            from { opacity: 0; }
-            to { opacity: 1; }
         }
 
         .option-button {
-            padding: 18px 30px;
+            padding: 15px 25px;
             background-color: #007BFF;
             color: white;
             border: none;
-            border-radius: 10px;
+            border-radius: 8px;
             cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s, opacity 0.3s;
+            transition: background-color 0.2s, transform 0.2s, opacity 0.2s;
             flex: 1 1 30%;
-            min-width: 160px;
-            max-width: 350px;
-            font-size: 1.1em;
-            margin: 10px;
+            min-width: 150px;
+            max-width: 200px;
+            font-size: clamp(0.8em, 1.2vw, 1em);
+            margin: 5px;
             white-space: normal;
             word-wrap: break-word;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .option-button::after {
-            content: '';
-            position: absolute;
-            width: 300%;
-            height: 300%;
-            background: rgba(255, 255, 255, 0.2);
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotate(45deg);
-            transition: all 0.5s;
-        }
-
-        .option-button:hover::after {
-            width: 0%;
-            height: 0%;
-            opacity: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .option-button:hover {
             background-color: #0056b3;
             transform: scale(1.05);
-            opacity: 0.95;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
         }
 
         .option-button.correct {
             background-color: #28a745 !important;
-            animation: pulseCorrect 0.5s;
-        }
-
-        @keyframes pulseCorrect {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
         }
 
         .option-button.wrong {
             background-color: #dc3545 !important;
-            animation: shakeWrong 0.5s;
-        }
-
-        @keyframes shakeWrong {
-            0% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            50% { transform: translateX(5px); }
-            75% { transform: translateX(-5px); }
-            100% { transform: translateX(0); }
         }
 
         .option-chosen {
-            border: 4px solid #ff8a00;
-            box-shadow: 0 0 15px rgba(255,138,0,0.5);
+            border: 3px solid #FFD700;
+            box-shadow: 0 0 10px rgba(255,215,0,0.5);
         }
 
         .option-faded {
@@ -635,25 +483,19 @@
         }
 
         .score-container {
-            font-size: 2em;
+            font-size: 1.8em;
             color: #333;
             text-align: center;
             display: none;
             flex-direction: column;
             align-items: center;
-            gap: 25px;
-            animation: fadeInScore 0.5s;
-        }
-
-        @keyframes fadeInScore {
-            from { opacity: 0; transform: scale(0.8); }
-            to { opacity: 1; transform: scale(1); }
+            gap: 20px;
         }
 
         .score-message {
-            font-size: 2.5em;
+            font-size: 2em;
             font-weight: bold;
-            margin-top: 25px;
+            margin-top: 20px;
             animation: glow 1.5s infinite alternate;
             text-align: center;
         }
@@ -668,54 +510,49 @@
 
         .score-message.purple {
             color: #6f42c1;
-            text-shadow: 0 0 15px #6f42c1, 0 0 25px #6f42c1, 0 0 35px #6f42c1;
-            animation: glowMukemmel 1.5s infinite alternate;
+            text-shadow: 0 0 10px #6f42c1, 0 0 20px #6f42c1, 0 0 30px #6f42c1;
+            animation: glow-mukemmel 1.5s infinite alternate;
         }
 
         @keyframes glow {
             from {
-                text-shadow: 0 0 15px rgba(0, 123, 255, 0.5);
+                text-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
             }
             to {
-                text-shadow: 0 0 25px rgba(0, 123, 255, 1);
+                text-shadow: 0 0 20px rgba(0, 123, 255, 1);
             }
         }
 
-        @keyframes glowMukemmel {
+        @keyframes glow-mukemmel {
             from {
-                text-shadow: 0 0 15px rgba(111, 66, 193, 0.5);
+                text-shadow: 0 0 10px rgba(111, 66, 193, 0.5);
             }
             to {
-                text-shadow: 0 0 25px rgba(111, 66, 193, 1), 0 0 35px rgba(111, 66, 193, 0.7);
+                text-shadow: 0 0 20px rgba(111, 66, 193, 1), 0 0 30px rgba(111, 66, 193, 0.7);
             }
         }
 
         .final-image {
-            width: 220px;
+            width: 200px;
             height: auto;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            animation: fadeInImage 1s;
         }
 
         /* Yeni Eklenen Stil: End Game Button (Geri Dön) */
         .end-game-button {
             background-color: #007BFF; /* Mavi renk */
             color: white;
-            padding: 14px 30px;
+            padding: 12px 25px;
             border: none;
-            border-radius: 10px;
+            border-radius: 8px;
             cursor: pointer;
             transition: background-color 0.3s, transform 0.2s;
-            font-size: 1.1em;
-            margin-top: 25px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            font-size: 1em;
+            margin-top: 20px;
         }
 
         .end-game-button:hover {
             background-color: #0056b3;
             transform: scale(1.05);
-            box-shadow: 0 7px 20px rgba(0,0,0,0.2);
         }
 
         /* Yeni +1 Efekti */
@@ -724,15 +561,14 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 8em;
+            font-size: 7em;
             color: #28a745;
             pointer-events: none;
             z-index: 1000;
             opacity: 1;
-            animation: plusOneMove 1s forwards;
         }
 
-        @keyframes plusOneMove {
+        @keyframes plus-one-move {
             0% {
                 opacity:1;
                 transform: translate(-50%, -50%) translate(0px, 0px) scale(1);
@@ -747,13 +583,12 @@
         .oyunda-button {
             background-color: #f59e0b; /* Turuncu renk */
             border: none;
-            border-radius: 6px;
+            border-radius: 5px;
             color: white;
-            padding: 8px 14px;
-            font-size: 1em;
+            padding: 5px 10px;
+            font-size: 0.9em;
             cursor: not-allowed;
             opacity: 0.7;
-            transition: background-color 0.3s;
         }
 
         .oyunda-button:hover {
@@ -769,53 +604,38 @@
             left:0;
             width:100%;
             height:100%;
-            background: rgba(0,0,0,0.6);
+            background: rgba(0,0,0,0.5);
             display: none;
             align-items:center;
             justify-content:center;
-            z-index:1000000;
-            animation: fadeInModal 0.3s;
-        }
-
-        @keyframes fadeInModal {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            z-index:99999999;
         }
 
         .alert-content, .prompt-content, .invitation-content {
             background:#fff;
-            padding:25px;
-            border-radius:15px;
+            padding:20px;
+            border-radius:10px;
             width:90%;
-            max-width:350px;
-            box-shadow:0 10px 25px rgba(0,0,0,0.3);
+            max-width:300px;
+            box-shadow:0 0 10px rgba(0,0,0,0.2);
             display:flex;
-            flex-direction: column;
-            gap:20px;
-            animation: slideDownModal 0.3s;
-        }
-
-        @keyframes slideDownModal {
-            from { transform: translateY(-50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+            flex-direction:column;
+            gap:15px;
+            text-align: center;
         }
 
         .alert-message, .prompt-message, .invitation-message {
-            font-size:1.2em;
+            font-size:1em;
             color:#333;
-            text-align: center;
         }
 
         .alert-ok-button, .prompt-ok-button, .prompt-cancel-button, .invitation-accept-button, .invitation-decline-button {
             background-color: #007BFF;
             color:white;
             border:none;
-            border-radius:8px;
-            padding:12px 25px;
+            border-radius:5px;
+            padding:10px 20px;
             cursor:pointer;
-            transition: background-color 0.3s;
-            font-size:1em;
-            font-weight: bold;
         }
 
         .alert-ok-button:hover, .prompt-ok-button:hover, .prompt-cancel-button:hover, .invitation-accept-button:hover, .invitation-decline-button:hover {
@@ -824,22 +644,15 @@
 
         .prompt-input {
             width:100%;
-            padding:12px;
-            border:2px solid #ff8a00;
-            border-radius:8px;
-            font-size:1.1em;
-            transition: border-color 0.3s;
-        }
-
-        .prompt-input:focus {
-            border-color: #f7786b;
-            outline: none;
+            padding:10px;
+            border:1px solid #ccc;
+            border-radius:5px;
+            font-size:1em;
         }
 
         .prompt-buttons, .invitation-buttons {
             display:flex;
-            justify-content: space-between;
-            gap: 10px;
+            justify-content:space-between;
         }
 
         .prompt-cancel-button, .invitation-decline-button {
@@ -855,45 +668,38 @@
             display: none;
             position: relative;
             overflow:hidden;
-            padding-bottom: 140px;
+            padding-bottom: 120px;
             text-align:center;
-            animation: fadeIn 0.5s forwards;
         }
 
         /* İki oyuncuyu eşit orantıda yerleştirmek için space-evenly kullandık */
         .duel-bottom-info {
             position: absolute;
-            bottom: 30px;
+            bottom: 20px;
             width: 100%;
             display: flex;
             justify-content: space-evenly;
-            gap: 20px;
         }
 
         .duel-player-info {
             display: flex;
             flex-direction: column;
             align-items: center;
-            max-width:160px; 
+            max-width:120px; 
             overflow:hidden;
         }
 
         .duel-player-photo {
-            width: 80px;
-            height: 80px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid #ff8a00;
-            margin-bottom: 10px;
-            transition: transform 0.3s;
-        }
-
-        .duel-player-photo:hover {
-            transform: rotate(360deg);
+            border: 2px solid #555;
+            margin-bottom: 5px;
         }
 
         .duel-player-name {
-            font-size: 1.2em;
+            font-size: 1em;
             font-weight: bold;
             color: #333;
             max-width:100%;
@@ -902,68 +708,28 @@
             white-space:nowrap;
             text-align:center;
             display:block;
-            text-shadow: 1px 1px #ff8a00;
         }
 
         .duel-controls {
             display:flex;
-            flex-direction: column;
-            gap:15px;
+            flex-direction:column;
+            gap:10px;
             align-items:center;
             justify-content:center;
-            margin-top:30px;
+            margin-top:20px;
         }
 
         .duel-start-button {
             display:inline-block;
             margin:0 auto;
-            background-color: #28a745;
-            color: white;
-            padding: 14px 30px;
-            border: none;
-            border-radius: 10px;
-            cursor: not-allowed;
-            opacity: 0.7;
-            transition: background-color 0.3s, transform 0.3s, opacity 0.3s;
-            font-size:1.1em;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
-        .duel-start-button.active {
-            cursor: pointer;
-            opacity: 1;
-        }
-
-        .duel-start-button:hover.active {
-            transform: scale(1.05);
-            background-color: #218838;
-        }
-
-        .duel-game-container {
-            display: none;
-            flex-direction: column;
-            gap: 25px;
-            width: 100%;
-            max-width: none;
-            justify-content: center;
-            align-items: center;
-            padding: 30px;
-            animation: fadeIn 0.5s forwards;
-        }
-
-        .players-info-row {
+        .duel-game-container .players-info-row {
             display: flex;
             width: 100%;
-            max-width: 900px;
+            max-width: 800px;
             justify-content: space-between;
             align-items: center;
-            gap: 20px;
-            animation: slideInPlayers 0.5s forwards;
-        }
-
-        @keyframes slideInPlayers {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         .duel-player-score {
@@ -971,65 +737,52 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            width: 120px;
+            width: 100px;
             overflow:hidden;
             position: relative;
-            background-color: #f1f1f1;
-            padding: 15px;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
         .duel-player-score img {
-            width: 70px;
-            height: 70px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
-            border: 3px solid #ff8a00;
+            border: 2px solid #555;
             object-fit: cover;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
 
         .duel-player-score .duel-player-name {
-            font-size: 1.1em;
+            font-size: 1em;
             font-weight: bold;
             color: #333;
             text-overflow: ellipsis;
             overflow:hidden;
             white-space:nowrap;
-            max-width:150px;
-            text-shadow: 1px 1px #ff8a00;
+            max-width:100px;
         }
 
         .duel-player-correct-count {
-            font-size: 1.5em;
-            margin-top: 8px;
+            font-size: 1.2em;
+            margin-top: 5px;
             color: #28a745;
             font-weight: bold;
             transition: transform 0.3s ease;
-            animation: bounceCount 0.6s;
-        }
-
-        @keyframes bounceCount {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.3); }
-            100% { transform: scale(1); }
         }
 
         .winner-message {
-            font-size: 2.5em;
+            font-size: 2em;
             font-weight: bold;
             color: #6f42c1;
             text-align:center;
-            animation: glowMukemmel 1.5s infinite alternate;
-            margin-bottom:25px;
-            text-shadow: 2px 2px #6f42c1;
+            animation: glow-mukemmel 1.5s infinite alternate;
+            margin-bottom:20px;
         }
 
         .score-flash {
-            animation: scoreFlash 0.8s ease;
+            animation: score-flash 0.8s ease;
         }
 
-        @keyframes scoreFlash {
+        @keyframes score-flash {
             0% {transform: scale(1) rotate(0deg); color:#28a745;}
             30% {transform: scale(1.5) rotate(10deg); color:#28a745;}
             60% {transform: scale(1.3) rotate(-10deg); color:#28a745;}
@@ -1043,25 +796,23 @@
             left: 0;
             width:100%;
             height:100%;
-            background:rgba(0,0,0,0.6);
+            background:rgba(0,0,0,0.4);
             display:none;
             align-items:center;
             justify-content:center;
-            z-index:1000000;
-            animation: fadeInModal 0.3s;
+            z-index:9999999;
         }
 
         .players-content {
             background:#fff;
-            padding:30px;
-            border-radius:15px;
+            padding:20px;
+            border-radius:10px;
             width:90%;
-            max-width:450px;
-            box-shadow:0 10px 25px rgba(0,0,0,0.3);
+            max-width:400px;
+            box-shadow:0 0 10px rgba(0,0,0,0.2);
             display:flex;
             flex-direction:column;
-            gap:25px;
-            animation: slideDownModal 0.3s;
+            gap:15px;
         }
 
         .players-header {
@@ -1072,22 +823,20 @@
 
         .players-header h3 {
             margin:0;
-            font-size:1.8em;
-            color:#ff8a00;
-            text-shadow: 1px 1px #f7786b;
+            font-size:1.5em;
+            color:#333;
         }
 
         .players-close {
             background: none;
             border:none;
-            font-size:1.5em;
+            font-size:1.2em;
             cursor:pointer;
-            color:#ff6f61;
-            transition: color 0.3s;
+            color:#333;
         }
 
         .players-close:hover {
-            color:#e63946;
+            color:#000;
         }
 
         .players-list {
@@ -1096,37 +845,31 @@
             margin:0;
             display:flex;
             flex-direction:column;
-            gap:15px;
+            gap:10px;
         }
 
         .players-list li {
             display:flex;
             align-items:center;
-            gap:15px;
+            gap:10px;
             background:#f0f0f0;
-            padding:12px;
-            border-radius:8px;
+            padding:10px;
+            border-radius:5px;
             justify-content: space-between;
-            transition: background-color 0.3s;
-        }
-
-        .players-list li:hover {
-            background-color: #e0e0e0;
         }
 
         .players-list img {
-            width:50px;
-            height:50px;
+            width:40px;
+            height:40px;
             border-radius:50%;
             object-fit:cover;
-            border:3px solid #ff8a00;
+            border:2px solid #333;
         }
 
         .players-list .player-name {
-            font-size:1.1em;
+            font-size:1em;
             color:#333;
             flex:1;
-            text-shadow: 1px 1px #ff8a00;
         }
 
         /* Yeni Eklenen Stil: Ranking Panel (Yan Panel) */
@@ -1134,23 +877,17 @@
             position: fixed;
             top: 0;
             right: -100%; /* Başlangıçta görünmez */
-            width: 450px;
+            width: 400px;
             max-width: 90%;
             height: 100%;
-            background-color: #fffbea;
-            box-shadow: -3px 0 10px rgba(0,0,0,0.3);
+            background-color: #fff;
+            box-shadow: -2px 0 5px rgba(0,0,0,0.3);
             transition: right 0.3s ease;
-            z-index: 1000000;
+            z-index: 100000;
             display: flex;
             flex-direction: column;
-            padding: 25px;
+            padding: 20px;
             overflow-y: auto;
-            animation: slideInPanel 0.3s forwards;
-        }
-
-        @keyframes slideInPanel {
-            from { right: -100%; }
-            to { right: 0; }
         }
 
         .ranking-panel.open {
@@ -1158,72 +895,65 @@
         }
 
         .ranking-panel h2 {
-            font-size: 2.2em;
-            color: #ff8a00;
-            margin-bottom: 25px;
+            font-size: 2em;
+            color: #333;
+            margin-bottom: 20px;
             text-align: center;
             position: relative;
-            text-shadow: 1px 1px #f7786b;
         }
 
         /* Ranking Panel İçin Geri Dön Butonu */
         .ranking-back-button {
-            padding: 14px 30px;
+            padding: 12px 25px;
             border: none;
-            border-radius: 10px;
+            border-radius: 8px;
             background-color: #555;
             color: white;
             cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s;
-            font-size: 1.1em;
-            margin-top: 30px;
+            transition: background-color 0.2s, transform 0.2s;
+            font-size: 1em;
+            margin-top: 20px;
             align-self: center;
             width: 100%;
-            max-width: 220px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            max-width: 200px;
         }
 
         .ranking-back-button:hover {
             background-color: #333;
             transform: scale(1.05);
-            box-shadow: 0 7px 20px rgba(0,0,0,0.3);
         }
 
         .ranking-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         .ranking-table th, .ranking-table td {
-            border: 2px solid #ff8a00;
-            padding: 15px;
+            border: 1px solid #ddd;
+            padding: 12px;
             text-align: center;
-            font-size: 1.1em;
-            color: #333;
+            font-size: 1em;
         }
 
         .ranking-table th {
-            background-color: #ffe5d9;
-            color: #ff8a00;
-            font-weight: bold;
-            text-shadow: 1px 1px #f7786b;
+            background-color: #f2f2f2;
+            color: #333;
         }
 
         .ranking-table tr:nth-child(even) {
-            background-color: #fff3e0;
+            background-color: #f9f9f9;
         }
 
         .ranking-table tr:hover {
-            background-color: #ffe5d9;
+            background-color: #f1f1f1;
         }
 
         .ranking-player-photo {
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid #ff8a00;
         }
 
         /* Top 3 özel stiller */
@@ -1245,335 +975,18 @@
         @keyframes pulse {
             0% {
                 transform: scale(1);
-                box-shadow: 0 0 15px rgba(0,0,0,0.3);
+                box-shadow: 0 0 10px rgba(0,0,0,0.2);
             }
             50% {
                 transform: scale(1.05);
-                box-shadow: 0 0 25px rgba(0,0,0,0.5);
+                box-shadow: 0 0 20px rgba(0,0,0,0.4);
             }
             100% {
                 transform: scale(1);
-                box-shadow: 0 0 15px rgba(0,0,0,0.3);
+                box-shadow: 0 0 10px rgba(0,0,0,0.2);
             }
         }
-    
-/* Maintain question container and ensure dynamic scaling */
-.question-container {
-    width: 600px;
-    height: 400px;
-    max-width: 100%;
-    max-height: 100%;
-    overflow: auto; /* Ensure content fits and is scrollable if needed */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 15px;
-    box-sizing: border-box;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Dynamically resize question text */
-.question-text {
-    font-size: 1.5em;
-    line-height: 1.4;
-    text-align: center;
-    overflow-wrap: break-word;
-    word-break: break-word;
-    max-height: 70%;
-    overflow-y: auto; /* Allow scrolling for long text */
-}
-
-/* Ensure question images fit within the container */
-.question-image {
-    max-width: 100%;
-    max-height: 40%;
-    object-fit: contain;
-}
-
-/* Winner screen adjustments */
-.winner-message {
-    font-size: 1.8em;
-    line-height: 1.4;
-    text-align: center;
-    overflow-wrap: break-word;
-    max-width: 90%;
-    margin: 0 auto;
-}
-
-/* Buttons with hover effects */
-.buttons button, .option-button {
-    transition: transform 0.2s ease, background-color 0.3s ease;
-}
-
-.buttons button:hover, .option-button:hover {
-    transform: scale(1.05);
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .question-container {
-        width: 90%;
-        height: auto;
-    }
-
-    .question-text {
-        font-size: 1.2em;
-    }
-
-    .winner-message {
-        font-size: 1.5em;
-    }
-}
-
-@media (max-width: 480px) {
-    .question-container {
-        width: 100%;
-        height: auto;
-    }
-
-    .question-text {
-        font-size: 1em;
-    }
-
-    .winner-message {
-        font-size: 1.2em;
-    }
-}
-
-/* Adjusted question container height */
-.question-container {
-    width: 600px;
-    height: 300px; /* Reduced height */
-    max-width: 100%;
-    max-height: 100%;
-    overflow: auto; /* Ensure content fits and is scrollable if needed */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 15px;
-    box-sizing: border-box;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Dynamically resize question text */
-.question-text {
-    font-size: 1.5em;
-    line-height: 1.4;
-    text-align: center;
-    overflow-wrap: break-word;
-    word-break: break-word;
-    max-height: 60%; /* Adjusted to fit new height */
-    overflow-y: auto; /* Allow scrolling for long text */
-}
-
-/* Ensure question images fit within the container */
-.question-image {
-    max-width: 100%;
-    max-height: 35%; /* Adjusted to fit new height */
-    object-fit: contain;
-}
-
-/* Further shortened question container */
-.question-container {
-    width: 600px;
-    height: 250px; /* Further reduced height */
-    max-width: 100%;
-    max-height: 100%;
-    overflow: auto; /* Ensure content fits and is scrollable if needed */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 15px;
-    box-sizing: border-box;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Dynamically resize question text */
-.question-text {
-    font-size: 1.4em;
-    line-height: 1.4;
-    text-align: center;
-    overflow-wrap: break-word;
-    word-break: break-word;
-    max-height: 50%; /* Adjusted to fit new height */
-    overflow-y: auto; /* Allow scrolling for long text */
-}
-
-/* Adjust image scaling to fit maximally within the container */
-.question-image {
-    width: auto;
-    height: auto;
-    max-width: 100%;
-    max-height: 70%; /* Ensure it fits well within the reduced container */
-    object-fit: contain;
-    display: block;
-    margin: 0 auto;
-}
-
-/* Perfectly centered and fitted question container */
-.question-container {
-    width: 600px;
-    height: 250px; /* Retaining the shorter height */
-    max-width: 100%;
-    max-height: 100%;
-    overflow: hidden; /* Prevent overflow */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 15px;
-    box-sizing: border-box;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Dynamically resize and center question images */
-.question-image {
-    width: 100%;
-    height: 100%;
-    object-fit: contain; /* Ensure the image fits perfectly */
-    display: block;
-    margin: auto; /* Center the image within the container */
-}
-
-/* Dynamically resize question text */
-.question-text {
-    font-size: 1.4em;
-    line-height: 1.4;
-    text-align: center;
-    overflow-wrap: break-word;
-    word-break: break-word;
-    max-height: 50%; /* Ensure space for images */
-    overflow-y: auto;
-}
-
-/* Maximize image size within the container */
-.question-container {
-    width: 600px;
-    height: 250px; /* Retaining the shorter height */
-    max-width: 100%;
-    max-height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 0; /* Remove padding to maximize image space */
-    box-sizing: border-box;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    overflow: hidden; /* Ensure content does not overflow */
-}
-
-/* Dynamically resize and center question images to maximize space usage */
-.question-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Cover the container without leaving spaces */
-    display: block;
-    margin: 0;
-}
-
-/* Dynamically resize question text */
-.question-text {
-    font-size: 1.2em;
-    line-height: 1.4;
-    text-align: center;
-    overflow-wrap: break-word;
-    word-break: break-word;
-    max-height: 20%; /* Reduce text space to allow larger images */
-    overflow-y: auto;
-    margin: 5px 0; /* Add slight spacing below the text */
-}
-
-/* Adjust question container for perfect image fitting */
-.question-container {
-    width: 600px;
-    height: 250px; /* Retaining the shorter height */
-    max-width: 100%;
-    max-height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0; /* Remove padding for a perfect fit */
-    box-sizing: border-box;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    overflow: hidden; /* Ensure no overflow occurs */
-}
-
-/* Perfectly fit image within the container */
-.question-image {
-    width: 100%;
-    height: 100%;
-    object-fit: contain; /* Ensure the entire image is visible without cropping */
-    display: block;
-    margin: 0;
-}
-
-/* Adjust question container for proper centering */
-.question-container {
-    width: 600px;
-    height: 250px; /* Retaining the shorter height */
-    max-width: 100%;
-    max-height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center; /* Center the image vertically and horizontally */
-    padding: 0;
-    box-sizing: border-box;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-}
-
-/* Center and fit image perfectly */
-.question-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Ensure the image covers the container proportionally */
-    display: block;
-    margin: auto;
-}
-
-/* Final adjustment for question container */
-.question-container {
-    width: 600px;
-    height: 250px; /* Retaining the specified height */
-    max-width: 100%;
-    max-height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0;
-    box-sizing: border-box;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-}
-
-/* Adjust image to fit perfectly and maintain aspect ratio */
-.question-image {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain; /* Ensures the entire image is visible */
-    display: block;
-    margin: 0;
-}
-</style>
+    </style>
 </head>
 <body>
     <!-- Oyundakiler Modal -->
@@ -1581,7 +994,7 @@
         <div class="players-content">
             <div class="players-header">
                 <h3>Oyundakiler</h3>
-                <button class="players-close" id="playersCloseButton">✖</button>
+                <button class="players-close" id="playersCloseButton">X</button>
             </div>
             <ul class="players-list" id="playersList"></ul>
         </div>
@@ -1633,7 +1046,7 @@
     </div>
 
     <!-- Ranking Panel (Yan Panel - Yeni Eklendi) -->
-    <div class="ranking-panel" id="rankingPanel" style="display: none;">
+    <div class="ranking-panel" id="rankingPanel">
         <h2>Kupa Sıralaması</h2>
         <div class="ranking-table-container">
             <table class="ranking-table" id="ranking-table">
@@ -1960,7 +1373,7 @@
                 playersArr = [...sameClassPlayers, ...otherClassPlayers];
 
                 for (const player of playersArr) {
-                    let photoURL = "https://via.placeholder.com/50";
+                    let photoURL = "https://via.placeholder.com/40";
                     try {
                         const photoSnapshot = await database.ref(`classes/${player.classId}/students/${player.studentId}/photo`).once('value');
                         if (photoSnapshot.exists()) {
@@ -2007,10 +1420,10 @@
                         davetButton.style.backgroundColor = '#17a2b8';
                         davetButton.style.color = 'white';
                         davetButton.style.border = 'none';
-                        davetButton.style.borderRadius = '6px';
-                        davetButton.style.padding = '8px 14px';
+                        davetButton.style.borderRadius = '5px';
+                        davetButton.style.padding = '5px 10px';
                         davetButton.style.cursor = 'pointer';
-                        davetButton.style.transition = 'background-color 0.3s';
+                        davetButton.style.transition = 'background-color 0.2s';
                         davetButton.addEventListener('mouseover', () => {
                             davetButton.style.backgroundColor = '#138496';
                         });
@@ -3082,10 +2495,10 @@
             currentDuelRef.on('value', snap => {
                 if (snap.exists()) {
                     const data = snap.val();
-                    duelInviterPhoto.src = data.inviter.photo ? data.inviter.photo : "https://via.placeholder.com/80";
+                    duelInviterPhoto.src = data.inviter.photo ? data.inviter.photo : "https://via.placeholder.com/60";
                     duelInviterName.textContent = data.inviter.name;
 
-                    duelInvitedPhoto.src = data.invited.photo ? data.invited.photo : "https://via.placeholder.com/80";
+                    duelInvitedPhoto.src = data.invited.photo ? data.invited.photo : "https://via.placeholder.com/60";
                     duelInvitedName.textContent = data.invited.name;
 
                     duelClassSelect.value = data.selections.class || "";
@@ -3246,9 +2659,9 @@
             duelSelectionScreen.style.display = 'none';
             duelGameScreen.style.display = 'flex';
 
-            document.getElementById('duel-player-inviter-photo').src = data.inviter.photo ? data.inviter.photo : "https://via.placeholder.com/80";
+            document.getElementById('duel-player-inviter-photo').src = data.inviter.photo ? data.inviter.photo : "https://via.placeholder.com/60";
             document.getElementById('duel-player-inviter-name').textContent = data.inviter.name;
-            document.getElementById('duel-player-invited-photo').src = data.invited.photo ? data.invited.photo : "https://via.placeholder.com/80";
+            document.getElementById('duel-player-invited-photo').src = data.invited.photo ? data.invited.photo : "https://via.placeholder.com/60";
             document.getElementById('duel-player-invited-name').textContent = data.invited.name;
 
             duelInviterScore = 0;
@@ -3355,7 +2768,7 @@
             currentDuelRef.child('responses').on('value', snap => {
                 if (snap.exists()) {
                     const data = snap.val();
-                    currentDuelRef.once('value', dsnap => {
+                    currentDuelRef.once('value').then(dsnap => {
                         const ddata = dsnap.val();
                         const invId = ddata.inviter.studentId;
                         const inId = ddata.invited.studentId;
@@ -3660,33 +3073,5 @@
             }
         }
     </script>
-
-    <script>
-        // Ensure the script runs after the DOM is fully loaded
-        document.addEventListener('DOMContentLoaded', () => {
-            const kupaSiralamaButton = document.getElementById('kupa-siralama-button');
-            const rankingBackButton = document.getElementById('rankingBackButton');
-            const rankingPanel = document.getElementById('rankingPanel');
-
-            // Hide the ranking panel initially
-            rankingPanel.style.display = 'none';
-
-            // Show the ranking panel when the button is clicked
-            if (kupaSiralamaButton) {
-                kupaSiralamaButton.addEventListener('click', () => {
-                    rankingPanel.style.display = 'flex';
-                });
-            }
-
-            // Hide the ranking panel when the back button is clicked
-            if (rankingBackButton) {
-                rankingBackButton.addEventListener('click', () => {
-                    rankingPanel.style.display = 'none';
-                });
-            }
-        });
-    </script>
-    </body>
-    
+</body>
 </html>
-
