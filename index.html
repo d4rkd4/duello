@@ -650,13 +650,19 @@
             to { opacity: 1; transform: scale(1); }
         }
 
-        .score-message {
-            font-size: 2.5em;
-            font-weight: bold;
-            margin-top: 25px;
-            animation: glow 1.5s infinite alternate;
-            text-align: center;
-        }
+.score-message {
+    font-size: 2.5em; /* Yazı boyutunu çerçeveye uygun olacak şekilde ayarlayın */
+    font-weight: bold;
+    margin-top: 25px;
+    animation: glow 1.5s infinite alternate;
+    text-align: center; /* Metni ortala */
+    max-width: 90%; /* Çerçevenin genişliğine uygun olacak şekilde sınırla */
+    white-space: normal; /* Alt satıra geçmesini sağla */
+    word-wrap: break-word; /* Uzun kelimeleri kırarak alt satıra geçir */
+    overflow: visible; /* Çerçeve dışına taşmayı engelle */
+    margin: 0 auto; /* Yatayda ortala */
+    line-height: 1.2; /* Satırlar arasındaki mesafeyi ayarla */
+}
 
         .score-message.blue {
             color: #007BFF;
