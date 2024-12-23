@@ -861,46 +861,51 @@
         }
 
         /* İki oyuncuyu eşit orantıda yerleştirmek için space-evenly kullandık */
-        .duel-bottom-info {
-    position: absolute;
-    bottom: 30px;
-    width: 100%;
+.duel-bottom-info {
     display: flex;
-    justify-content: space-evenly; /* Ortada eşit aralık sağlanır */
-    gap: 20px; /* Elemanlar arasındaki boşluk */
+    justify-content: space-evenly; /* Kartlar arasında eşit boşluk */
+    align-items: center; /* Kartları yatayda ortala */
+    width: 100%; /* Genişlik tüm alanı kaplasın */
+    padding: 10px 0; /* Üst ve alt boşluk */
 }
+
 
 .duel-player-info {
     display: flex;
-    flex-direction: column;
-    align-items: center; /* Tüm içerikleri yatayda ortalar */
-    max-width: 200px; /* Çerçeve genişliği */
-    text-align: center; /* İsimleri ortalar */
+    flex-direction: column; /* Resim ve ismi dikey hizalar */
+    align-items: center; /* Yatayda ortalar */
+    justify-content: center; /* Dikeyde ortalar */
+    text-align: center; /* Yazıyı ortala */
+    gap: 10px; /* Resim ile isim arasındaki boşluk */
+    width: 100%; /* Kartın genişliği */
 }
 
 .duel-player-photo {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 10px;
-    border: 3px solid #ff8a00;
+    width: 80px; /* Resim genişliği */
+    height: 80px; /* Resim yüksekliği */
+    border-radius: 50%; /* Yuvarlak resim */
+    object-fit: cover; /* Resmi çerçeveye sığdır */
+    border: 3px solid #ff8a00; /* Çerçeve rengi */
+    margin-bottom: 5px; /* Resim ile isim arasındaki boşluk */
 }
+
 
 .duel-player-photo:hover {
     transform: rotate(360deg);
 }
 
 .duel-player-name {
-    font-size: 1em;
-    font-weight: bold;
-    color: #333;
-    text-align: center;
-    max-width: 100%; /* Çerçevenin tamamına izin ver */
-    overflow: hidden; /* Taşmaları gizle */
-    white-space: normal; /* Metni çok satırda göstermek için */
-    word-wrap: break-word; /* Uzun kelimelerin kırılmasına izin ver */
+    font-size: 1em; /* Yazı boyutu */
+    font-weight: bold; /* Yazı kalınlığı */
+    color: #333; /* Yazı rengi */
+    text-align: center; /* Yazıyı ortala */
+    white-space: normal; /* Yazının satır kaydırmasını etkinleştir */
+    word-wrap: break-word; /* Uzun kelimeleri kaydır */
+    overflow-wrap: break-word; /* Modern tarayıcı desteği */
+    max-width: 100%; /* Çerçeve sınırında kal */
+    line-height: 1.2; /* Satırlar arası boşluğu azalt */
 }
+
 
 
         .duel-controls {
