@@ -1020,15 +1020,20 @@
             100% { transform: scale(1); }
         }
 
-        .winner-message {
-            font-size: 2.5em;
-            font-weight: bold;
-            color: #6f42c1;
-            text-align:center;
-            animation: glowMukemmel 1.5s infinite alternate;
-            margin-bottom:25px;
-            text-shadow: 2px 2px #6f42c1;
-        }
+.winner-message {
+    font-size: 1.5em; /* Yazı boyutu başlangıç değeri */
+    font-weight: bold; /* Yazı kalınlığı */
+    color: #11b819; /* Yazı rengi */
+    text-align: center; /* Yazıyı ortala */
+    animation: glowMukemmel 1.5s infinite alternate; /* Animasyon */
+    margin-bottom: 25px; /* Alt boşluk */
+    text-shadow: 3px 4px #95e600; /* Yazı gölgesi */
+    word-wrap: break-word; /* Uzun kelimeleri kaydır */
+    overflow-wrap: break-word; /* Modern tarayıcılar için kelime kaydırma */
+    white-space: normal; /* Satır kaydırmayı etkinleştir */
+    padding: 10px; /* Çerçeve kenar boşluğu */
+    line-height: 1.2; /* Satır aralığını sıkılaştır */
+}
 
         .score-flash {
             animation: scoreFlash 0.8s ease;
