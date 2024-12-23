@@ -82,15 +82,60 @@ option {
             }
         }
 
-        #main-screen {
-            display: none;
-            flex-direction: row;
-            align-items: center;
-            justify-content: space-between;
-            gap: 40px;
-            position: relative;
-            animation: slideIn 0.5s forwards;
-        }
+#main-screen {
+    display: flex;
+    flex-direction: column; /* İçeriği dikey hizalar */
+    align-items: center; /* Yatayda ortalar */
+    justify-content: center; /* Dikeyde ortalar */
+    gap: 20px; /* Elemanlar arasındaki boşluk */
+    position: relative; /* Efektler için gerekli */
+    padding: 30px;
+    width: 80%; /* Genişlik (ekranın %80'i) */
+    max-width: 900px; /* Maksimum genişlik */
+    min-height: 300px; /* Minimum yükseklik */
+    background: linear-gradient(135deg, #ffffff, #f1f1f1); /* Arka plan gradyanı */
+    border: 5px solid transparent;
+    border-radius: 20px; /* Köşe yuvarlama */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* Yumuşak gölge */
+    overflow: hidden; /* Taşmaları gizler */
+    z-index: 1; /* Diğer elemanlarla çakışmayı önler */
+}
+
+/* Hareketli ışık efekti */
+#main-screen::before {
+    content: '';
+    position: absolute;
+    top: -20%;
+    left: -150%;
+    width: 300%;
+    height: 200%;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0) 100%);
+    animation: lightMove 5s infinite linear; /* Hareketli ışık efekti */
+    z-index: 0;
+    pointer-events: none; /* Etkileşimden kaçınır */
+}
+
+/* Çerçeve parlaması */
+@keyframes glowingBorder {
+    0% {
+        box-shadow: 0 0 5px #ff8a00, 0 0 10px #ff8a00;
+    }
+    50% {
+        box-shadow: 0 0 15px #fbc2eb, 0 0 20px #fbc2eb;
+    }
+    100% {
+        box-shadow: 0 0 5px #a6c1ee, 0 0 10px #a6c1ee;
+    }
+}
+
+@keyframes lightMove {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
 
         @keyframes slideIn {
             from { opacity: 0; transform: translateX(100px); }
