@@ -398,7 +398,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
-            width: 600px; /* Sabit genişlik */
+            width: 500px; /* Sabit genişlik */
             height: 400px; /* Sabit yükseklik */
             text-align: center;
             padding: 20px;
@@ -419,15 +419,19 @@
         }
 
         .question-text {
-            font-size: clamp(1em, 2.5vw, 1.5em);
-            margin-bottom: 20px;
-            color: #333;
-            word-wrap: break-word; 
-            overflow-wrap: break-word; 
-            hyphens: auto; 
-            flex: 1; /* Metnin çerçeve içinde esnek olmasını sağlar */
-            overflow-y: auto; 
-            padding: 0 10px; /* Metnin kenarlardan uzak durmasını sağlar */
+display: flex; /* Dikey merkezleme için flex kullanıldı */
+    align-items: center; /* Dikey olarak ortalamak için */
+    justify-content: center; /* Yatay olarak ortalamak için */
+    font-size: clamp(1em, 2.5vw, 1.5em);
+    margin-bottom: 20px;
+    color: #333;
+    word-wrap: break-word; 
+    overflow-wrap: break-word; 
+    hyphens: auto; 
+    flex: 1; /* Metnin çerçeve içinde esnek olmasını sağlar */
+    overflow-y: auto; 
+    padding: 0 10px; /* Metnin kenarlardan uzak durmasını sağlar */
+    text-align: center; /* Yatay merkezleme */
         }
 
         .options-container {
