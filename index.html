@@ -874,8 +874,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width:160px; 
-    overflow:hidden;
+    max-width: 200px; /* Çerçeve genişliği */
+    text-align: center;
 }
 
 .duel-player-photo {
@@ -883,9 +883,8 @@
     height: 80px;
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid #ff8a00;
     margin-bottom: 10px;
-    transition: transform 0.3s;
+    border: 3px solid #ff8a00;
 }
 
 .duel-player-photo:hover {
@@ -893,15 +892,17 @@
 }
 
 .duel-player-name {
-    font-size: 1em; /* Yazı boyutunu küçülttük */
+    font-size: 1em; /* Yazı boyutunu biraz küçülttük */
     font-weight: bold;
     color: #333;
-    max-width: 150px; /* Çerçeve genişliği ile uyumlu hale getirildi */
-    word-wrap: break-word; /* Uzun kelimeleri böler */
-    overflow: hidden;
-    white-space: normal; /* Tek satır yerine birden fazla satırda gösterebilir */
     text-align: center;
-    text-shadow: 1px 1px #ff8a00;
+    max-width: 100%; /* Çerçevenin tamamına izin ver */
+    overflow: hidden; /* Taşmaları gizle */
+    white-space: normal; /* Metni çok satırda göstermek için */
+    word-wrap: break-word; /* Uzun kelimelerin kırılmasına izin ver */
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Maksimum 2 satır göster */
+    -webkit-box-orient: vertical;
 }
 
 
@@ -989,16 +990,20 @@
             margin-bottom: 10px;
         }
 
-        .duel-player-score .duel-player-name {
-            font-size: 1.1em;
-            font-weight: bold;
-            color: #333;
-            text-overflow: ellipsis;
-            overflow:hidden;
-            white-space:nowrap;
-            max-width:150px;
-            text-shadow: 1px 1px #ff8a00;
-        }
+.duel-player-score .duel-player-name {
+    font-size: 0.8em; /* Yazı boyutunu biraz küçültebilirsiniz */
+    font-weight: bold;
+    color: #333;
+    white-space: normal; /* Uzun metinlerin satır atlamasına izin verir */
+    word-wrap: break-word; /* Uzun kelimelerin uygun yerlerde kırılmasını sağlar */
+    text-align: center; /* Metni ortalar */
+    overflow: hidden; /* Çerçevenin dışına taşmayı engeller */
+    text-shadow: 1px 1px #ff8a00;
+    max-width: 150px; /* Çerçevenin genişliğine göre uyarlanır */
+    display: -webkit-box; /* Çok satırlı metni sınırlamak için */
+    -webkit-line-clamp: 2; /* Maksimum 2 satır göster */
+    -webkit-box-orient: vertical;
+}
 
         .duel-player-correct-count {
             font-size: 1.5em;
