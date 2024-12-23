@@ -231,80 +231,93 @@ option {
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .buttons button {
-            width: 100%;
-            padding: 18px;
-            border: none;
-            border-radius: 12px;
-            font-size: 1.3em;
-            color: white;
-            cursor: pointer;
-            transition: transform 0.2s, opacity 0.2s, box-shadow 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
+.buttons {
+    display: flex; /* Flexbox düzeni */
+    flex-direction: column; /* Butonları dikey hizalar */
+    align-items: stretch; /* Butonları çerçeveye tam yayar */
+    justify-content: center; /* Butonlar arasında eşit hizalama */
+    gap: 20px; /* Butonlar arasında dikey boşluk */
+    padding: 10px; /* Çerçeve içi boşluk */
+    width: 100%; /* Çerçeve genişliği */
+    max-width: 900px; /* Maksimum genişlik */
+    margin: 0 auto; /* Ortalamak için */
+    box-sizing: border-box; /* Padding ve border dahil */
+}
 
-        .buttons button::before {
-            content: '';
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            background: rgba(255, 255, 255, 0.2);
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotate(45deg);
-            transition: all 0.5s;
-        }
+.buttons button {
+    width: 100%; /* Butonlar çerçeveye tam sığar */
+    padding: 18px; /* İçerik boşluğu */
+    border: none;
+    border-radius: 12px; /* Köşeleri yuvarlar */
+    font-size: 1.3em; /* Yazı boyutu */
+    color: white;
+    cursor: pointer;
+    transition: transform 0.2s, opacity 0.2s, box-shadow 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
 
-        .buttons button:hover::before {
-            width: 0%;
-            height: 0%;
-            opacity: 0;
-        }
+.buttons button::before {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.2);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    transition: all 0.5s;
+}
 
-        .buttons button:hover {
-            transform: scale(1.05);
-            opacity: 0.9;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-        }
+.buttons button:hover::before {
+    width: 0%;
+    height: 0%;
+    opacity: 0;
+}
 
-        .single-player {
-            background-color: #ff6f61;
-        }
+.buttons button:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
 
-        .oyundakiler-button {
-            background-color: #6b5b95;
-            margin-top: 20px;
-        }
+.single-player {
+    background-color: #ff6f61;
+}
 
-        .oyundakiler-button:hover {
-            transform: scale(1.07);
-            opacity: 0.9;
-        }
+.oyundakiler-button {
+    background-color: #6b5b95;
+}
 
-        .kupa-siralama-button {
-            background-color: #f7cac9;
-            color: black !important;
-            background-image: linear-gradient(135deg, #edf500, #8ff514);
-            box-shadow: 0 0 15px rgba(247, 202, 201, 0.7);
-            position: relative;
-            overflow: hidden;
-        }
+.oyundakiler-button:hover {
+    transform: scale(1.07);
+    opacity: 0.9;
+}
 
-        .kupa-siralama-button::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: rgba(247, 202, 201, 0.2);
-            transform: rotate(45deg);
-            animation: shine 3s infinite;
-        }
+.kupa-siralama-button {
+    background-color: #f7cac9;
+    color: black !important;
+    background-image: linear-gradient(135deg, #edf500, #8ff514);
+    box-shadow: 0 0 15px rgba(247, 202, 201, 0.7);
+    position: relative;
+    overflow: hidden;
+}
+
+.kupa-siralama-button::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: rgba(247, 202, 201, 0.2);
+    transform: rotate(45deg);
+    animation: shine 3s infinite;
+}
+
 
         @keyframes shine {
             0% {
