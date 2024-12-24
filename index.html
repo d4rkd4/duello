@@ -1628,23 +1628,24 @@ option {
         const singlePlayerQuestionMusic = document.getElementById('singlePlayerQuestionMusic');
 
         // "Oyunu Sonlandır" butonuna eklenen event listener
-        document.getElementById('duel-final-back-button').addEventListener('click', async () => {
-            await showAlert('🏆 Kupa verileriniz güncellendi. Tekrar giriş yapın.');
-            if (currentDuelRef) {
-                try {
-                    await currentDuelRef.remove();
-                    currentDuelRef = null;
-                    isInviter = false;
-                    duelGameStarted = false;
-                    window.location.reload();
-                } catch (error) {
-                    console.error("Düello referansı kaldırılırken hata:", error);
-                    await showAlert('Düello referansı kaldırılırken hata oluştu.');
-                }
-            } else {
-                window.location.reload();
-            }
-        });
+document.getElementById('duel-final-back-button').addEventListener('click', async () => {
+    await showAlert('🏆 Kupa verileriniz güncellendi.');
+    if (currentDuelRef) {
+        try {
+            await currentDuelRef.remove();
+            currentDuelRef = null;
+            isInviter = false;
+            duelGameStarted = false;
+            window.location.reload();
+        } catch (error) {
+            console.error("Düello referansı kaldırılırken hata:", error);
+            await showAlert('Düello referansı kaldırılırken hata oluştu.');
+        }
+    } else {
+        window.location.reload();
+    }
+});
+
 
         window.addEventListener('beforeunload', () => {
             if (selectedStudent && selectedStudent.studentId) {
@@ -1912,12 +1913,41 @@ option {
         let duelQuestionLocked = false;
         let duelGameStarted = false;
 
-        window.onload = () => {
-            studentSelectionScreen.style.display = 'flex';
-            fetchClassesForSelection();
-            fetchAdminClasses();
-            fetchChampionData();
-        };
+window.onload = () => {
+    const storedStudent = localStorage.getItem('selectedStudent');
+    if (storedStudent) {
+        selectedStudent = JSON.parse(storedStudent);
+        mainScreen.style.display = 'flex';
+        studentSelectionScreen.style.display = 'none';
+        studentSelectionError.textContent = '';
+        studentPasswordInput.value = '';
+
+        database.ref(`classes/${selectedStudent.classId}/students/${selectedStudent.studentId}/photo`).once('value').then(photoSnapshot => {
+            if (photoSnapshot.exists()) {
+                const photoURL = photoSnapshot.val();
+                studentPhoto.src = photoURL;
+                studentPhoto.style.display = 'block';
+            } else {
+                studentPhoto.style.display = 'none';
+            }
+        }).catch(error => {
+            console.error("Fotoğraf çekilirken hata:", error);
+            studentPhoto.style.display = 'none';
+        });
+
+        studentName.textContent = selectedStudent.studentName;
+        addLoggedInPlayer(selectedStudent);
+        startInvitationListener(selectedStudent.studentId);
+        fetchAndDisplayGameCup();
+    } else {
+        studentSelectionScreen.style.display = 'flex';
+    }
+    fetchClassesForSelection();
+    fetchAdminClasses();
+    fetchChampionData();
+};
+
+
 
         async function fetchAllClasses() {
             const snapshot = await database.ref('classes').once('value');
@@ -1939,56 +1969,60 @@ option {
             }
         });
 
-        loginButton.addEventListener('click', async () => {
-            selectedStudent.classId = selectionClassSelect.value;
-            selectedStudent.studentId = selectionNameSelect.value;
-            selectedStudent.studentName = selectionNameSelect.options[selectionNameSelect.selectedIndex].text;
-            const enteredPassword = studentPasswordInput.value.trim();
+loginButton.addEventListener('click', async () => {
+    selectedStudent.classId = selectionClassSelect.value;
+    selectedStudent.studentId = selectionNameSelect.value;
+    selectedStudent.studentName = selectionNameSelect.options[selectionNameSelect.selectedIndex].text;
+    const enteredPassword = studentPasswordInput.value.trim();
 
-            if (selectedStudent.classId && selectedStudent.studentId) {
-                if (enteredPassword === "") {
-                    studentSelectionError.textContent = 'Lütfen şifrenizi giriniz.';
-                    return;
-                }
+    if (selectedStudent.classId && selectedStudent.studentId) {
+        if (enteredPassword === "") {
+            studentSelectionError.textContent = 'Lütfen şifrenizi giriniz.';
+            return;
+        }
 
-                database.ref(`classes/${selectedStudent.classId}/students/${selectedStudent.studentId}/password`).once('value').then(async snapshot => {
-                    if (snapshot.exists()) {
-                        const correctPassword = snapshot.val();
-                        if (enteredPassword === correctPassword) {
-                            studentSelectionScreen.style.display = 'none';
-                            mainScreen.style.display = 'flex';
-                            studentSelectionError.textContent = '';
-                            studentPasswordInput.value = '';
+        database.ref(`classes/${selectedStudent.classId}/students/${selectedStudent.studentId}/password`).once('value').then(async snapshot => {
+            if (snapshot.exists()) {
+                const correctPassword = snapshot.val();
+                if (enteredPassword === correctPassword) {
+                    studentSelectionScreen.style.display = 'none';
+                    mainScreen.style.display = 'flex';
+                    studentSelectionError.textContent = '';
+                    studentPasswordInput.value = '';
 
-                            database.ref(`classes/${selectedStudent.classId}/students/${selectedStudent.studentId}/photo`).once('value').then(photoSnapshot => {
-                                if (photoSnapshot.exists()) {
-                                    const photoURL = photoSnapshot.val();
-                                    studentPhoto.src = photoURL;
-                                    studentPhoto.style.display = 'block';
-                                } else {
-                                    studentPhoto.style.display = 'none';
-                                }
-                            }).catch(error => {
-                                console.error("Fotoğraf çekilirken hata:", error);
-                                studentPhoto.style.display = 'none';
-                            });
-
-                            studentName.textContent = selectedStudent.studentName;
-                            await addLoggedInPlayer(selectedStudent);
-                            startInvitationListener(selectedStudent.studentId);
-                            fetchAndDisplayGameCup(); // gameCup puanını çek ve göster
+                    database.ref(`classes/${selectedStudent.classId}/students/${selectedStudent.studentId}/photo`).once('value').then(photoSnapshot => {
+                        if (photoSnapshot.exists()) {
+                            const photoURL = photoSnapshot.val();
+                            studentPhoto.src = photoURL;
+                            studentPhoto.style.display = 'block';
                         } else {
-                            studentSelectionError.textContent = 'Yanlış şifre. Lütfen tekrar deneyiniz.';
+                            studentPhoto.style.display = 'none';
                         }
-                    } else {
-                        studentSelectionError.textContent = 'Bu öğrenci için şifre tanımlanmamış.';
-                    }
-                }).catch(error => {
-                    console.error("Şifre kontrol hata:", error);
-                    studentSelectionError.textContent = 'Şifre kontrol edilirken hata oluştu.';
-                });
+                    }).catch(error => {
+                        console.error("Fotoğraf çekilirken hata:", error);
+                        studentPhoto.style.display = 'none';
+                    });
+
+                    studentName.textContent = selectedStudent.studentName;
+                    await addLoggedInPlayer(selectedStudent);
+                    startInvitationListener(selectedStudent.studentId);
+                    fetchAndDisplayGameCup(); // gameCup puanını çek ve göster
+
+                    // **Oturum Bilgilerini localStorage'a Kaydet**
+                    localStorage.setItem('selectedStudent', JSON.stringify(selectedStudent));
+                } else {
+                    studentSelectionError.textContent = 'Yanlış şifre. Lütfen tekrar deneyiniz.';
+                }
+            } else {
+                studentSelectionError.textContent = 'Bu öğrenci için şifre tanımlanmamış.';
             }
+        }).catch(error => {
+            console.error("Şifre kontrol hata:", error);
+            studentSelectionError.textContent = 'Şifre kontrol edilirken hata oluştu.';
         });
+    }
+});
+
 
         adminButton.addEventListener('click', () => {
             studentSelectionScreen.style.display = 'none';
@@ -2534,7 +2568,7 @@ option {
             scoreImage.style.display = 'block';
 
             // Müzik çalma işlemi burada
-            if (score > 5) { // Örneğin, belirli bir başarı düzeyinde müzik çalınır
+            if (score > 9) { // Örneğin, belirli bir başarı düzeyinde müzik çalınır
                 winnerMusic.currentTime = 0;
                 winnerMusic.play().catch(error => {
                     console.error("Kazanan müziği çalınamadı:", error);
