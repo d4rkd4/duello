@@ -48,6 +48,26 @@
             animation: fadeInUp 0.5s forwards;
         }
 
+.logout-button {
+    background-color: #dc3545; /* Kırmızı renk */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px; /* Köşeleri yuvarla */
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    font-size: 1.1em;
+    margin-top: 20px; /* Üstten boşluk */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.logout-button:hover {
+    background-color: #c82333; /* Hover sırasında biraz daha koyu kırmızı */
+    transform: scale(1.05);
+    box-shadow: 0 7px 20px rgba(0,0,0,0.2);
+}
+
+
 select {
     background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
     border: 2px solid #ff8a00;
@@ -1409,6 +1429,7 @@ option {
             <button class="kupa-siralama-button" id="kupa-siralama-button">
                 🏆 Kupa Sıralaması
             </button>
+	    <button class="logout-button" id="logout-button">Çıkış Yap</button>
         </div>
     </div>
 
@@ -2381,6 +2402,30 @@ loginButton.addEventListener('click', async () => {
             adminStudentList.innerHTML = '';
             studentSelectionError.textContent = '';
         }
+
+// "Çıkış Yap" Butonunu Seçme
+const logoutButton = document.getElementById('logout-button');
+
+// "Çıkış Yap" Butonuna Event Listener Ekleme
+logoutButton.addEventListener('click', () => {
+    // 1. Oturum Bilgilerini localStorage'dan Temizleme
+    localStorage.removeItem('selectedStudent');
+
+    // 2. Firebase'deki loggedinPlayers Listesinden Kullanıcıyı Kaldırma
+    if (loggedinPlayerRef) {
+        loggedinPlayerRef.remove().then(() => {
+            console.log("Kullanıcı Firebase'den başarıyla kaldırıldı.");
+        }).catch(error => {
+            console.error("Firebase'den kullanıcı kaldırılırken hata oluştu:", error);
+            showAlert('Çıkış yaparken bir hata oluştu. Lütfen tekrar deneyin.');
+            return; // Hata durumunda sayfa yenilenmesin
+        });
+    }
+
+    // 3. Sayfayı Yenileme
+    window.location.reload();
+});
+
 
         function fetchQuestions(classId, subjectId, topicId) {
             const questionsRef = database.ref(`championData/headings/${classId}/lessons/${subjectId}/topics/${topicId}/questions`);
