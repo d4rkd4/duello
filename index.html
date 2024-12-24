@@ -2823,15 +2823,70 @@ logoutButton.addEventListener('click', () => {
                 }
             });
 
-            // Düello referansı silindiğinde (örneğin, bir oyuncu bağlantısını kestiğinde)
-            database.ref('duels').on('child_removed', snapshot => {
-                if (currentDuelRef && snapshot.key === currentDuelRef.key && !duelEnded) { // duelEnded kontrolü eklendi
-                    showAlert('Rakibin bağlantısı kesildi. Tekrar giriş yapınız.')
-                        .then(() => {
-                            window.location.reload();
-                        });
-                }
-            });
+// Düello referansı silindiğinde (örneğin, bir oyuncu bağlantısını kestiğinde)
+database.ref('duels').on('child_removed', async snapshot => {
+    if (currentDuelRef && snapshot.key === currentDuelRef.key && !duelEnded) {
+        // Şu anda düello oyun ekranında olup olmadığınızı kontrol edin
+        if (duelGameScreen.style.display === 'flex') {
+            const duelData = snapshot.val();
+            const inviter = duelData.inviter;
+            const invited = duelData.invited;
+
+            let disconnectedPlayerId, disconnectedClassId;
+            let remainingPlayerId, remainingClassId;
+
+            if (selectedStudent.studentId === inviter.studentId) {
+                // Mevcut oyuncu davet eden ise, davet edilen oyuncu ayrıldı
+                disconnectedPlayerId = invited.studentId;
+                disconnectedClassId = invited.classId;
+                remainingPlayerId = inviter.studentId;
+                remainingClassId = inviter.classId;
+            } else if (selectedStudent.studentId === invited.studentId) {
+                // Mevcut oyuncu davet edilen ise, davet eden oyuncu ayrıldı
+                disconnectedPlayerId = inviter.studentId;
+                disconnectedClassId = inviter.classId;
+                remainingPlayerId = invited.studentId;
+                remainingClassId = invited.classId;
+            } else {
+                // Mevcut oyuncu bu düelloda değilse, işlem yapma
+                return;
+            }
+
+            try {
+                // Kazanan oyuncunun gameCup'una +3 ekle
+                await database.ref(`classes/${remainingClassId}/students/${remainingPlayerId}/gameCup`).transaction(current => (current || 0) + 3);
+
+                // Ayrılan oyuncunun gameCup'undan -1 çıkar (en az 0)
+                await database.ref(`classes/${disconnectedClassId}/students/${disconnectedPlayerId}/gameCup`).transaction(current => Math.max((current || 0) - 1, 0));
+
+                // GameCup gösterimini güncelle
+                fetchAndDisplayGameCup();
+
+                // Duelin sona erdiğini belirtmek için bayrağı ayarla
+                duelEnded = true;
+
+                // Uyarıyı göster
+                await showAlert('Rakibin bağlantısı kesildi. Düelloyu kazandınız.');
+
+                // "Oyunu Sonlandır" butonunun işlevini tetikle
+                document.getElementById('duel-final-back-button').click();
+            } catch (error) {
+                console.error("Kupa güncellenirken hata:", error);
+                showAlert('Kupa güncellenirken bir hata oluştu.');
+            }
+        } else {
+            // Şu anda düello oyun ekranında değilse, mevcut davranışı sürdür
+            showAlert('Rakibin bağlantısı kesildi. Tekrar giriş yapınız.')
+                .then(() => {
+                    window.location.reload();
+                });
+        }
+    }
+});
+
+
+
+
         }
 
         function showInvitationModal(data) {
